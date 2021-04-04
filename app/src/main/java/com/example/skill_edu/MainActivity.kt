@@ -10,7 +10,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val root = findViewById<ViewGroup>(R.id.root)
+//        val root = findViewById<ViewGroup>(R.id.root)
 //        val view = layoutInflater.inflate(R.layout.item, root, false)
 //        root.addView(view)
         /*val view1 = layoutInflater.inflate(R.layout.activity_main, root, false)
