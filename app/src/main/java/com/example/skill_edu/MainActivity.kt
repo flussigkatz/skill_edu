@@ -9,11 +9,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        val content = findViewById<ViewGroup>(R.id.content)
+        setContentView(R.layout.`activity_main_19.8`)
+        /*val content = findViewById<ViewGroup>(R.id.content)
         for (i in 1..100) {
             val v = layoutInflater.inflate(R.layout.item,content,true)
-        }
+        }*/
 //        val view = layoutInflater.inflate(R.layout.item,content,true)
 //        val root = findViewById<ViewGroup>(R.id.root)
 //        val view = layoutInflater.inflate(R.layout.item, root, false)
