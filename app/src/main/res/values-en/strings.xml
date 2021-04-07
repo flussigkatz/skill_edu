@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">skill_edu</string>
+    <string name="button_name">Button</string>
+    <string name="text1_content">Motivational quote</string>
+</resources>

@@ -4,12 +4,16 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.`activity_main_19.8`)
+        setContentView(R.layout.m20)
+
+        fun onClickButton(view: View) {
+            Toast.makeText(this, "Toast", Toast.LENGTH_SHORT).show()
+        }
         /*val content = findViewById<ViewGroup>(R.id.content)
         for (i in 1..100) {
             val v = layoutInflater.inflate(R.layout.item,content,true)
