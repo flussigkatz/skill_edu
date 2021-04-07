@@ -11,9 +11,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.m20)
 
-        fun onClickButton(view: View) {
+       /* button1.setOnClivkListjener {
             Toast.makeText(this, "Toast", Toast.LENGTH_SHORT).show()
-        }
+        }*/
         /*val content = findViewById<ViewGroup>(R.id.content)
         for (i in 1..100) {
             val v = layoutInflater.inflate(R.layout.item,content,true)
@@ -31,6 +31,10 @@ class MainActivity : AppCompatActivity() {
         view3.setOnClickListener{}
         root.addView(view1)
         root.addView(view2)*/
+    }
+
+    fun onClickButton(view: View) {
+        Toast.makeText(this, "Toast", Toast.LENGTH_SHORT).show()
     }
 
 }
