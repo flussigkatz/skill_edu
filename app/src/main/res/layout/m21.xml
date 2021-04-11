@@ -11,12 +11,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topAppBar"
+            android:id="@+id/topPanel"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:title="Skillfactory"
-            app:titleTextColor="@android:color/white"
-            app:menu="@menu/top_app_bar"
+            android:layout_height="wrap_content"
+            app:title="My Title"
+            app:titleTextColor="@color/teal_700"
+            app:menu="@menu/top_panel_bar"
             app:navigationIcon="@drawable/ic_launcher_foreground" />
 
     </com.google.android.material.appbar.AppBarLayout>

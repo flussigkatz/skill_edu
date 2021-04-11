@@ -10,7 +10,27 @@ class M21 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.m21)
 
-        topAppBar.setNavigationOnClickListener {
+        topPanel.setNavigationOnClickListener {
+            Toast.makeText(this, "Nav", Toast.LENGTH_SHORT).show()
+        }
+
+        topPanel.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.first_action -> {
+                    Toast.makeText(this, "First", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.second_action -> {
+                    Toast.makeText(this, "Second", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.third_action -> {
+                    Toast.makeText(this, "Third", Toast.LENGTH_SHORT).show()
+                    true
+                } else -> false
+            }
+        }
+        /*topAppBar.setNavigationOnClickListener {
             Toast.makeText(this, "Когда-нибудь здесь будет навигация...", Toast.LENGTH_SHORT).show()
         }
         topAppBar.setOnMenuItemClickListener {
@@ -26,7 +46,7 @@ class M21 : AppCompatActivity() {
                 }
                 else -> false
             }
-        }
+        }*/
     }
 
 
