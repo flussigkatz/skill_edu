@@ -13,6 +13,20 @@ class M21 : AppCompatActivity() {
         topAppBar.setNavigationOnClickListener {
             Toast.makeText(this, "Когда-нибудь здесь будет навигация...", Toast.LENGTH_SHORT).show()
         }
+        topAppBar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.fav -> {Toast.makeText(this, "Favorite", Toast.LENGTH_SHORT).show()
+                true
+                }
+                R.id.search -> {Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show()
+                true
+                }
+                R.id.more -> {Toast.makeText(this, "More", Toast.LENGTH_SHORT).show()
+                true
+                }
+                else -> false
+            }
+        }
     }
 
 
