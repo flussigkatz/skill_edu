@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Skill_edu">
         <activity
-            android:name=".MainActivity"
+            android:name=".M21"
             android:label="@string/app_name"
             android:theme="@style/Theme.Skill_edu.NoActionBar">
             <intent-filter>
