@@ -19,7 +19,23 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+
     <style name="Theme.Skill_edu.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.Skill_edu.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="MyTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">#B10202</item>
+        <item name="colorPrimaryVariant">#1AFF00</item>
+        <item name="colorPrimaryDark">#C5B900</item>
+        <item name="colorAccent">#FF9900</item>
+        <item name="colorOnBackground">@color/teal_200</item>
+        <item name="colorOnPrimary">#48005C</item>
+        <item name="android:colorBackground">@color/white</item>
+        <item name="colorOnSurface">#FFEB3B</item>
+    </style>
+
+    <style name="MyTheme.ButtonStyle" parent="ThemeOverlay.MaterialComponents">
+        <item name="colorPrimary">@android:color/holo_orange_light</item>
+    </style>
 </resources>

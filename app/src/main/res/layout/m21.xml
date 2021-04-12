@@ -15,10 +15,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:title="My Title"
-            app:titleTextColor="@color/teal_700"
             app:menu="@menu/top_panel_bar"
             app:navigationIcon="@drawable/ic_launcher_foreground" />
 
     </com.google.android.material.appbar.AppBarLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
