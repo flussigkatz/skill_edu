@@ -2,6 +2,7 @@ package com.example.skill_edu
 
 import android.os.Bundle
 import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Toast
@@ -13,12 +14,13 @@ class M21 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.m21)
 
-        val button2 = Button(ContextThemeWrapper(this, R.style.buttonStyle))
-        button2.text = "Button2"
-        container.addView(button2)
+
+//        val button2 = Button(ContextThemeWrapper(this, R.style.myButtonStyle))
+//        button2.text = "Button2"
+//        container.addView(button2)
 
 //        val textView = TextView(ContextThemeWrapper(this, R.style.textStyle))
-//        textView.text = "TEtx"
+//        textView.text = "Text1"
 //        container.addView(textView)
 
 
