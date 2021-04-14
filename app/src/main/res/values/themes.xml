@@ -35,13 +35,26 @@
         <item name="colorOnSurface">#FFEB3B</item>
     </style>
 
-    <style name="myButtonStyle" parent="MyTheme">
+    <style name="MyButtonStyle" parent="MyTheme">
         <!--        <item name="android:buttonCornerRadius" tools:ignore="NewApi">50dp</item>-->
-        <item name="backgroundTint">@color/purple_200</item>
+        <item name="backgroundTint">@color/teal_200</item>
+        <item name="android:textColor">@color/purple_700</item>
         <item name="cornerRadius">50dp</item>
     </style>
 
-    <style name="textStyle" parent="MyTheme">
-        <item name="android:textColor">@color/teal_200</item>
+    <style name="RoundShadowButton" parent="TextAppearance.MaterialComponents.Button">
+        <item name="android:shadowDx">5</item>
+        <item name="android:shadowDy">5</item>
+        <item name="android:shadowRadius">5</item>
+        <item name="android:shadowColor">#7A000000</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <style name="TextShadowStyle" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:shadowDx">5</item>
+        <item name="android:shadowDy">5</item>
+        <item name="android:shadowRadius">5</item>
+        <item name="android:shadowColor">#7A000000</item>
+        <item name="android:textSize">30sp</item>
     </style>
 </resources>
