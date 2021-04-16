@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.m21.*
 class M21 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.m21_7)
+        setContentView(R.layout.m21)
 
 
 //        val button2 = Button(ContextThemeWrapper(this, R.style.myButtonStyle))
