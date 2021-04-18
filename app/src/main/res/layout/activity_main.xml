@@ -12,6 +12,14 @@
         android:src="#00BCD4"
         />
 
+    <ImageView
+        android:id="@+id/sun"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/sun"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/cloud_right"
@@ -47,13 +55,4 @@
         android:id="@+id/night"
         android:src="@color/black"/>
 
-    <ImageView
-        android:id="@+id/sun"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/sun"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
