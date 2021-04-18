@@ -7,12 +7,27 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.view.animation.*
+import android.widget.Button
+import android.widget.ImageView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        add.setOnClickListener {
+            var image = ImageView(this)
+            image.setImageResource(R.drawable.rocket)
+//            to do image size
+            container.addView(image)
+        }
+
+        del.setOnClickListener {
+            if (container.childCount != 0) {
+                container.removeViewAt(container.childCount -1)
+                    }
+        }
 
         /*hide.setOnClickListener {
             if (sun.alpha == 0F) {
@@ -41,7 +56,7 @@ class MainActivity : AppCompatActivity() {
 //        animSet.startDelay = 700
 //        animSet.start()
 
-        sun.animate()
+        /*sun.animate()
                 .translationY(-1200f)
                 .setDuration(3000)
                 .setInterpolator(AccelerateDecelerateInterpolator())
@@ -72,7 +87,7 @@ class MainActivity : AppCompatActivity() {
                     }
 
                 })
-
+*/
 
 
         /*val sunRise = ObjectAnimator.ofFloat(sun, View.TRANSLATION_Y, -1200F)
