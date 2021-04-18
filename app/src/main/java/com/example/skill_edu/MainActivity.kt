@@ -1,14 +1,10 @@
 package com.example.skill_edu
 
-import android.animation.Animator
+import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
-import android.view.ViewGroup
-import android.view.animation.AnimationUtils
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -16,26 +12,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val animatorSet = AnimatorSet()
 
-        val animator = ObjectAnimator.ofFloat(image, View.ALPHA, 0F, 1F)
-        animator.setDuration(1000).start()
-        val animationUpdateListener = object: Animator.AnimatorListener {
-            override fun onAnimationStart(animation: Animator?) {
-            }
+        val sunRise = ObjectAnimator.ofFloat(sun, View.TRANSLATION_Y, -1200F)
+        val cloudMove1 = ObjectAnimator.ofFloat(cloud_right, View.TRANSLATION_X, -700F)
+        val cloudMove2 = ObjectAnimator.ofFloat(cloud_left, View.TRANSLATION_X, 500F)
+        val lightsOn = ObjectAnimator.ofFloat(night, View.ALPHA, 1F, 0F)
+        lightsOn.setDuration(3000).start()
+        cloudMove1.startDelay = 2500
+        cloudMove2.startDelay = 2500
+        sunRise.setDuration(3000).start()
+        cloudMove1.setDuration(1500).start()
+        cloudMove2.setDuration(1500).start()
 
-            override fun onAnimationEnd(animation: Animator?) {
-                animator.setFloatValues( 1F, 0F)
-            }
 
-            override fun onAnimationCancel(animation: Animator?) {
-            }
-
-            override fun onAnimationRepeat(animation: Animator?) {
-            }
-        }
-
-        animator.addListener(animationUpdateListener)
-
-        start.setOnClickListener { animator.start() }
     }
 }
