@@ -1,13 +1,8 @@
 package com.example.skill_edu
 
-import android.animation.Animator
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
+import android.animation.*
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import android.view.View
-import android.view.animation.*
-import android.widget.Button
 import android.widget.ImageView
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -16,10 +11,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        /*container.layoutTransition.setAnimator(LayoutTransition.APPEARING, AnimatorInflater.loadAnimator(this, R.animator.add))
+        container.layoutTransition.setAnimator(LayoutTransition.DISAPPEARING, AnimatorInflater.loadAnimator(this, R.animator.del))
+
         add.setOnClickListener {
             var image = ImageView(this)
-            image.setImageResource(R.drawable.rocket)
-//            to do image size
+//            image.scaleType = ImageView.ScaleType.FIT_CENTER
+//            image.layoutParams.height = 20
+//            image.layoutParams.width = 20
+            image.scaleX = 0f
+            image.scaleY = 0f
+            image.setImageResource(R.drawable.rocket1)
             container.addView(image)
         }
 
@@ -28,7 +30,7 @@ class MainActivity : AppCompatActivity() {
                 container.removeViewAt(container.childCount -1)
                     }
         }
-
+*/
         /*hide.setOnClickListener {
             if (sun.alpha == 0F) {
                 sun.animate()

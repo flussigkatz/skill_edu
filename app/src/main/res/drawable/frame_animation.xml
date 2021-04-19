@@ -4,11 +4,6 @@
 
     <item
         android:duration="1000"
-        android:drawable="@drawable/rocket"
-        />
-
-    <item
-        android:duration="1000"
         android:drawable="@drawable/rocket1"
         />
 
