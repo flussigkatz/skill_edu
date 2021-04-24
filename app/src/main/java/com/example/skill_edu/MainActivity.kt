@@ -15,6 +15,8 @@ class MainActivity : AppCompatActivity() {
         val rec = findViewById<RecyclerView>(R.id.rec)
         val adapter = MyAdapter()
         rec.adapter = adapter
+        rec.addItemDecoration(MyItemDecorator())
+
 
     }
 }
