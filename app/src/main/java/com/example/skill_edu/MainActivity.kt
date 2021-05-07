@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
                 )
             }
         })
-        /*val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation_view)
         bottomNavigationView.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.action_settings -> Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show()
@@ -54,6 +54,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.action_third -> Toast.makeText(this, "Tree", Toast.LENGTH_SHORT).show()
             }
             false
-        }*/
+        }
     }
 }
