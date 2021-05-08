@@ -50,9 +50,16 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <include layout="@layout/content_scrolling" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#000000"
+            android:id="@+id/tint_back"
+            android:alpha="0"/>
 
         <include layout="@layout/bottom_navigation"
-            android:id="@+id/bottom_sheet"/>
+            android:id="@+id/bottom_sheet"
+            />
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -60,10 +67,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:backgroundTint="@android:color/darker_gray"
-            app:layout_anchor="@id/app_bar"
-            app:layout_anchorGravity="bottom|end"
-            app:srcCompat="@android:drawable/ic_dialog_email" />
+            android:backgroundTint="@color/purple_700"
+            app:layout_anchor="@id/bottom_sheet"
+            app:layout_anchorGravity="top|end"/>
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

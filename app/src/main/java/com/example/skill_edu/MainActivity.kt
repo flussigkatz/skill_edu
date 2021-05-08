@@ -4,6 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -11,9 +13,9 @@ import androidx.core.content.ContextCompat
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,10 +28,6 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Toast", Toast.LENGTH_SHORT).show()
         }
         snackbar.setBackgroundTint(ContextCompat.getColor(this, R.color.design_default_color_error))
-        val fab = findViewById<FloatingActionButton>(R.id.fab)
-        fab.setOnClickListener {
-            snackbar.show()
-        }
         val appBar = findViewById<AppBarLayout>(R.id.app_bar)
         appBar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
             if (verticalOffset == 0) {
@@ -55,5 +53,32 @@ class MainActivity : AppCompatActivity() {
             }
             false
         }
+        val bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottom_sheet))
+        val fab = findViewById<FloatingActionButton>(R.id.fab)
+        fab.setOnClickListener {
+//            snackbar.show()
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+        }
+
+        bottomSheetBehavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                when(bottomSheetBehavior.state) {
+                    1 -> findViewById<TextView>(R.id.label).text = "STATE DRAGGING"
+                    2 -> findViewById<TextView>(R.id.label).text = "STATE SETTLING"
+                    3 -> findViewById<TextView>(R.id.label).text = "STATE EXPANDED"
+                    4 -> findViewById<TextView>(R.id.label).text = "STATE COLLAPSED"
+                    5 -> findViewById<TextView>(R.id.label).text = "STATE HIDDEN"
+                    6 -> findViewById<TextView>(R.id.label).text = "STATE HALF EXPANDED"
+                }
+                findViewById<TextView>(R.id.label).text
+            }
+
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                fab.scaleX = 1 - slideOffset
+                fab.scaleY = 1 - slideOffset
+                findViewById<FrameLayout>(R.id.tint_back).alpha = (slideOffset/1.2f)
+            }
+
+        })
     }
 }
