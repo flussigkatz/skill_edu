@@ -24,53 +24,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val button = findViewById<Button>(R.id.change_text)
-        val textView = findViewById<TextView>(R.id.text_view)
+        lifecycle.addObserver(LifeCicleListener())
         Timber.d("onCreate")
-        button.setOnClickListener {
-            textView.text = "Just text"
-
-        }
     }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        val textView = findViewById<TextView>(R.id.text_view)
-
-        outState.putString("text1", textView.text.toString())
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        val textView = findViewById<TextView>(R.id.text_view)
-
-        textView.text = savedInstanceState.getString("text1")
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Timber.d("onStart")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Timber.d("onResume")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Timber.d("onPause")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Timber.d("onStop")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Timber.d("onDestroy")
-    }
-
-
 }
