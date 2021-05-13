@@ -9,8 +9,8 @@
     app:layout_behavior="@string/bottom_sheet_behavior">
     <TextView
         android:layout_width="match_parent"
+        android:id="@+id/label"
         android:layout_height="50dp"
-        android:text="Pull"
         android:background="@android:color/holo_orange_light"/>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
