@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -23,7 +24,27 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val button = findViewById<Button>(R.id.change_text)
+        val textView = findViewById<TextView>(R.id.text_view)
         Timber.d("onCreate")
+        button.setOnClickListener {
+            textView.text = "Just text"
+
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        val textView = findViewById<TextView>(R.id.text_view)
+
+        outState.putString("text1", textView.text.toString())
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        val textView = findViewById<TextView>(R.id.text_view)
+
+        textView.text = savedInstanceState.getString("text1")
     }
 
     override fun onStart() {
@@ -50,4 +71,6 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         Timber.d("onDestroy")
     }
+
+
 }

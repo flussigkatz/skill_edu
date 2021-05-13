@@ -5,73 +5,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".MainActivity"
-        >
-
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/app_bar"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:fitsSystemWindows="true"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-            <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/toolbar_layout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fitsSystemWindows="true"
-                app:title="Title"
-                android:minHeight="60dp"
-                app:contentScrim="@android:color/holo_red_dark"
-                app:layout_scrollFlags="scroll|snap"
-                app:toolbarId="@+id/toolbar">
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#FF5722"
-                    android:fitsSystemWindows="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_launcher_foreground"
-                    app:layout_collapseMode="parallax" />
-
-                <androidx.appcompat.widget.Toolbar
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    app:layout_collapseMode="pin"
-                    app:popupTheme="@style/Theme.Skill_edu.PopupOverlay" />
-
-
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <include layout="@layout/content_scrolling" />
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#000000"
-            android:id="@+id/tint_back"
-            android:alpha="0"/>
-
-        <include layout="@layout/bottom_navigation"
-            android:id="@+id/bottom_sheet"
-            />
-
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:backgroundTint="@color/purple_700"
-            app:layout_anchor="@id/bottom_sheet"
-            app:layout_anchorGravity="top|end"/>
-
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
+<TextView
+    android:id="@+id/text_view"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    android:text="Some text"
+    android:textSize="50sp"
+    />
+    <Button
+        android:id="@+id/change_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Change text"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
