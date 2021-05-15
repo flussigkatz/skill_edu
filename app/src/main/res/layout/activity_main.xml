@@ -5,21 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<TextView
-    android:id="@+id/text_view"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+<fragment
+    android:id="@+id/fargment1"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    android:name="com.example.skill_edu.FirstFragment"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    android:text="Some text"
-    android:textSize="50sp"
     />
-    <Button
-        android:id="@+id/change_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="Change text"
-        />
 </androidx.constraintlayout.widget.ConstraintLayout>
