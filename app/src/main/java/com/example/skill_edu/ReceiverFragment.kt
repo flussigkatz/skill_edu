@@ -12,7 +12,6 @@ class ReceiverFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        text_receiver.text = arguments?.getString("input")
     }
 
     override fun onCreateView(
@@ -22,4 +21,8 @@ class ReceiverFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_receiver, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        text_receiver.text = arguments?.getString("input")
+    }
 }

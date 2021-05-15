@@ -20,13 +20,7 @@ class MainActivity : AppCompatActivity() {
             .addToBackStack(null)
             .commit()
 
-        /*button_send.setOnClickListener {
-            passData(edit_text_1.text.toString())
-        }*/
 
-        button_send.setOnClickListener {
-            passData(text_send.text.toString())
-        }
     }
 
     fun passData(editext: String) {
