@@ -5,26 +5,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import kotlinx.android.synthetic.main.fragment_first.*
+import kotlinx.android.synthetic.main.fragment_receiver.*
 
 
-class FirstFragment : Fragment() {
+class ReceiverFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-        /*button_send.setOnClickListener {
-            Toast.makeText(context, text_send.text, Toast.LENGTH_SHORT).show()
-        }*/
+        text_receiver.text = arguments?.getString("input")
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_first, container, false)
+        return inflater.inflate(R.layout.fragment_receiver, container, false)
     }
 
 }

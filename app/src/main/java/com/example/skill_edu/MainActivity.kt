@@ -1,24 +1,11 @@
 package com.example.skill_edu
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.FrameLayout
-import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
-import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.core.content.ContextCompat
-import com.google.android.material.appbar.AppBarLayout
-import com.google.android.material.appbar.CollapsingToolbarLayout
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
+import androidx.appcompat.app.AppCompatActivity
 import timber.log.Timber
-import com.example.skill_edu.App
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_first.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,22 +17,33 @@ class MainActivity : AppCompatActivity() {
         val tag = "fragment_1"
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.fargment_container, FirstFragment(), tag)
+            .add(R.id.fragment_container, FirstFragment(), tag)
             .addToBackStack(null)
             .commit()
+
+        /*button_send.setOnClickListener {
+            passData(edit_text_1.text.toString())
+        }*/
+
+        button_send.setOnClickListener {
+
+        }
     }
 
-    fun passData(edittext: String) {
+    fun passData(editext: String) {
         val bundle = Bundle()
-        bundle.putString("input", edittext)
+        bundle.putString("input", editext)
 
-        val fragment2 = FirstFragment()
-        fragment2.arguments = bundle
+
+        val frag2 = ReceiverFragment()
+        frag2.arguments = bundle
 
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.fargment_container, fragment2)
+            .replace(R.id.fragment_container, frag2)
             .addToBackStack(null)
             .commit()
     }
+
+
 }
