@@ -26,5 +26,26 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         lifecycle.addObserver(LifeCicleListener())
         Timber.d("onCreate")
+
+        val tag = "fragment_1"
+        supportFragmentManager
+            .beginTransaction()
+            .add(R.id.fargment_container, FirstFragment(), tag)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    fun passData(edittext: String) {
+        val bundle = Bundle()
+        bundle.putString("input", edittext)
+
+        val fragment2 = FirstFragment()
+        fragment2.arguments = bundle
+
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fargment_container, fragment2)
+            .addToBackStack(null)
+            .commit()
     }
 }

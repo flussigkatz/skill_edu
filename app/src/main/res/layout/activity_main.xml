@@ -5,11 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<fragment
-    android:id="@+id/fargment1"
+<FrameLayout
+    android:id="@+id/fargment_container"
     android:layout_width="match_parent"
     android:layout_height="300dp"
-    android:name="com.example.skill_edu.FirstFragment"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     />
