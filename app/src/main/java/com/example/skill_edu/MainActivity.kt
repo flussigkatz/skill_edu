@@ -14,10 +14,9 @@ class MainActivity : AppCompatActivity() {
         lifecycle.addObserver(LifeCicleListener())
         Timber.d("onCreate")
 
-        val tag = "fragment_1"
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.fragment_container, FirstFragment(), tag)
+            .add(R.id.fragment_container, FirstFragment())
             .addToBackStack(null)
             .commit()
 
@@ -26,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         }*/
 
         button_send.setOnClickListener {
-
+            passData(text_send.text.toString())
         }
     }
 
