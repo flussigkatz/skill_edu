@@ -1,7 +1,9 @@
 package com.example.skill_edu
 
 import android.os.Bundle
+import android.view.ContextThemeWrapper
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import timber.log.Timber
 import kotlinx.android.synthetic.main.activity_main.*
@@ -36,6 +38,24 @@ class MainActivity : AppCompatActivity() {
             .replace(R.id.fragment_container, frag2)
             .addToBackStack(null)
             .commit()
+    }
+
+    override fun onBackPressed() {
+        AlertDialog.Builder(ContextThemeWrapper(this, R.style.ExitDialog))
+            .setTitle("Sure?")
+            .setIcon(R.drawable.ic_launcher_foreground)
+            .setPositiveButton("Yes"){
+                _, _ -> finish()
+            }
+            .setNegativeButton("No"){
+                _, _ ->
+            }
+            .setNeutralButton("Not sure") {
+                _, _ ->
+                Toast.makeText(this, "Ok, later.", Toast.LENGTH_SHORT).show()
+            }
+            .show()
+
     }
 
 
