@@ -1,6 +1,7 @@
 package com.example.skill_edu
 
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import timber.log.Timber
@@ -35,6 +36,24 @@ class MainActivity : AppCompatActivity() {
             .beginTransaction()
             .replace(R.id.fragment_container, frag2)
             .addToBackStack(null)
+            .commit()
+    }
+
+    fun startSecondFragment(imageView: ImageView) {
+
+        supportFragmentManager
+            .beginTransaction()
+            .addSharedElement(imageView, "trans1")
+            .replace(R.id.fragment_container, ReceiverFragment())
+            .commit()
+    }
+
+    fun startFirstFragment(imageView: ImageView) {
+
+        supportFragmentManager
+            .beginTransaction()
+            .addSharedElement(imageView, "trans1")
+            .replace(R.id.fragment_container, FirstFragment())
             .commit()
     }
 
