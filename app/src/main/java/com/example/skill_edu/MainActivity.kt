@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        AlertDialog.Builder(ContextThemeWrapper(this, R.style.ExitDialog))
+        /*AlertDialog.Builder(ContextThemeWrapper(this, R.style.ExitDialog))
             .setTitle("Sure?")
             .setIcon(R.drawable.ic_launcher_foreground)
             .setPositiveButton("Yes"){
@@ -54,7 +54,10 @@ class MainActivity : AppCompatActivity() {
                 _, _ ->
                 Toast.makeText(this, "Ok, later.", Toast.LENGTH_SHORT).show()
             }
-            .show()
+            .show()*/
+
+
+        DialogFragment1().show(supportFragmentManager, "dialog1")
 
     }
 
