@@ -30,10 +30,9 @@ class MainActivity : AppCompatActivity() {
 
         val bundle = Bundle()
         bundle.putParcelable("SomeData",SomeData("SomeText", 777))
-        bundle
-        val intent = Intent(this, SecondActivity::class.java)
-        intent.putExtras(bundle)
+        val intent = Intent(Intent.ACTION_WEB_SEARCH)
         findViewById<Button>(R.id.change_text).setOnClickListener {
+//            startActivity(Intent("other"))
             startActivity(intent)
         }
     }
