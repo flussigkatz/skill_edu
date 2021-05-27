@@ -193,5 +193,6 @@
 Никого со мной нет.
 Я один…
 И — разбитое зеркало…</string>
+    <string name="title_activity_second">SecondActivity</string>
 
 </resources>
