@@ -19,11 +19,11 @@ class SecondActivity : AppCompatActivity() {
         setContentView(R.layout.activity_second)
 //        Timber.d(.toString)
 //        val bundle = intent.extras?.getBundle("bundle")
-        val data = intent.extras?.get("SomeData") as SomeData
+       /* val data = intent.extras?.get("SomeData") as SomeData
         if (data != null) {
             findViewById<TextView>(R.id.text_view_2).text =  data.toString()
 //            findViewById<TextView>(R.id.text_view_2).text =  data.value1 + " " +  data.value2
-        }
+        }*/
     }
 
 }
