@@ -1,17 +1,10 @@
-package com.example.skill_edu
+package com.example.skill_edu.cherdak
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.TextView
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import com.example.skill_edu.databinding.ActivitySecondBinding
+import com.example.skill_edu.R
 import kotlinx.android.synthetic.main.activity_second.*
-import timber.log.Timber
 
 class SecondActivity : AppCompatActivity() {
 

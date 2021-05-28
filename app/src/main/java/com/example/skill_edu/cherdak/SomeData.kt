@@ -1,4 +1,4 @@
-package com.example.skill_edu
+package com.example.skill_edu.cherdak
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

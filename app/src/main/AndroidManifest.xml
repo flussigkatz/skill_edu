@@ -4,7 +4,7 @@
     package="com.example.skill_edu">
 
     <application
-        android:name=".App"
+        android:name=".cherdak.App"
         android:allowBackup="true"
         android:debuggable="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,7 +14,7 @@
         android:theme="@style/Theme.AppCompat.DayNight"
         tools:ignore="HardcodedDebugMode">
         <activity
-            android:name=".SecondActivity"
+            android:name=".cherdak.SecondActivity"
             android:label="@string/title_activity_second"
             android:theme="@style/NoActionBar">
 
