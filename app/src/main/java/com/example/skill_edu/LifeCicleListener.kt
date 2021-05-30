@@ -1,4 +1,4 @@
-package com.example.skill_edu.cherdak
+package com.example.skill_edu
 
 import android.widget.Toast
 import androidx.lifecycle.Lifecycle

@@ -2,9 +2,6 @@ package com.example.skill_edu
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import com.example.skill_edu.cherdak.LifeCicleListener
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
