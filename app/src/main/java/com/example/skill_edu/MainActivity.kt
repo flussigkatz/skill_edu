@@ -3,6 +3,7 @@ package com.example.skill_edu
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -16,13 +17,11 @@ class MainActivity : AppCompatActivity() {
         lifecycle.addObserver(LifeCicleListener())
         Timber.d("onCreate")
 
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+
         val tv1 = findViewById<TextView>(R.id.tv1)
         val et1 = findViewById<EditText>(R.id.et1)
-        val b1 = findViewById<Button>(R.id.b1)
 
-        b1.setOnClickListener {
-            tv1.text = et1.text
-        }
 
         val textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
