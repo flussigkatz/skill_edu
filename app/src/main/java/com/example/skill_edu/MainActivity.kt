@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.WindowManager
+import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -21,21 +22,15 @@ class MainActivity : AppCompatActivity() {
 
         val tv1 = findViewById<TextView>(R.id.tv1)
         val et1 = findViewById<EditText>(R.id.et1)
+        val et2 = findViewById<EditText>(R.id.et2)
 
-
-        val textWatcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        et2.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                tv1.text = et2.text
+                return@setOnEditorActionListener true
             }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                tv1.text = s
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-            }
-
+            return@setOnEditorActionListener false
         }
-        et1.addTextChangedListener(textWatcher)
 
 
 
