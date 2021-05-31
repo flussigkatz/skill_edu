@@ -21,20 +21,11 @@
         android:layout_height="wrap_content"
         android:hint="Type some1"
         android:inputType="text"
-        android:imeOptions="actionNone"
+        android:imeOptions="actionDone"
         android:textAlignment="center"
         android:textColorHighlight="@android:color/holo_orange_dark"
         android:textSize="20sp" />
 
-    <EditText
-        android:id="@+id/et2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Type some2"
-        android:inputType="text"
-        android:textAlignment="center"
-        android:textColorHighlight="@android:color/holo_orange_dark"
-        android:textSize="20sp" />
 
 
 </LinearLayout>
