@@ -1,21 +1,23 @@
 package com.example.skill_edu
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.InputFilter
-import android.text.Spanned
-import android.text.TextWatcher
+import android.view.Menu
 import android.view.WindowManager
-import android.view.inputmethod.EditorInfo
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import kotlinx.android.synthetic.main.activity_main.*
+import androidx.appcompat.widget.SearchView
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
+    private val list = mutableListOf<String>()
+    private lateinit var mAdapter: SimpleCursorAdapter
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         lifecycle.addObserver(LifeCicleListener())
@@ -23,28 +25,47 @@ class MainActivity : AppCompatActivity() {
 
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
-        val tv1 = findViewById<TextView>(R.id.tv1)
-        val et1 = findViewById<EditText>(R.id.et1)
 
-        val inputFilter = InputFilter { source, start, end, dest, dstart, dend ->
-            if (source.length <= 5) {
-                return@InputFilter source
-            }
-            Toast.makeText(this, "Character limit is 5", Toast.LENGTH_SHORT).show()
-            dest.toString()
+        for (i in 1 .. 10) {
+            list.add("index$i")
         }
-        val inputFilter1 = InputFilter { source, start, end, dest, dstart, dend ->
-            if (source.contains("e")) {
-                return@InputFilter dest
-            }
-            Toast.makeText(this, "No e", Toast.LENGTH_SHORT).show()
-            source.toString()
-        }
-        et1.filters = arrayOf(InputFilter.AllCaps(), InputFilter.LengthFilter(2))
-
-
-
 
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        //"Надуваем" наше меню
+        menuInflater.inflate(R.menu.search_menu, menu)
+        //Находим наш пункт меню с поиском
+        val menuItem = menu?.findItem(R.id.search)
+        //Привязываем его как поле для поиска
+        val searchView = menuItem?.actionView as SearchView
+        //Задаем слушатель изменений ввода текста
+        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+            //Здесь выполняется код по нажатию на кнопку поиска
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (list.contains(query)) {
+                    tv1.text = "In list"
+                    tv1.setTextColor(ContextCompat.getColor(this@MainActivity, R.color.colorGreen))
+                } else {
+                    tv1.text = "Not in list"
+                    tv1.setTextColor(ContextCompat.getColor(this@MainActivity, R.color.colorRed))
+                }
+                return false
+            }
+            //Здесь выполняется код при любом изменении текста
+            override fun onQueryTextChange(newText: String?): Boolean {
+                /*if (list.contains(newText)) {
+                    tv1.text = "In list"
+                    tv1.setTextColor(ContextCompat.getColor(this@MainActivity, R.color.colorGreen))
+                } else {
+                    tv1.text = "Not in list"
+                    tv1.setTextColor(ContextCompat.getColor(this@MainActivity, R.color.colorRed))
+                }*/
+                return false
+            }
+        })
+        return super.onCreateOptionsMenu(menu)
+    }
+
 
 }
