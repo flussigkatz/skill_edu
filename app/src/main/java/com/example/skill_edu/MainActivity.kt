@@ -1,10 +1,9 @@
 package com.example.skill_edu
 
+import android.graphics.Rect
 import android.os.Bundle
-import android.transition.Scene
-import android.transition.Transition
-import android.transition.TransitionInflater
-import android.transition.TransitionManager
+import android.transition.*
+import android.util.TypedValue
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.view.ViewGroup
@@ -22,29 +21,16 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val btn4 = findViewById<Button>(R.id.btn3)
-//        val scene1 = Scene.getSceneForLayout(scene_root, R.layout.scene1, this)
-//        val scene2 = Scene.getSceneForLayout(scene_root, R.layout.scene2, this)
-        val scene3 = Scene.getSceneForLayout(scene_root, R.layout.scene3, this)
-        val scene4 = Scene.getSceneForLayout(scene_root, R.layout.scene4, this)
-//        val transitionManager = TransitionManager()
-        val transitionManager = TransitionInflater.from(this).inflateTransitionManager(R.transition.trans_man, scene_root)
-        scene3.setEnterAction {
-            scene3.sceneRoot.btn3.setOnClickListener {
-                transitionManager.transitionTo(scene4)
-            }
+        val whdth = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 420F, resources.displayMetrics).toInt()
+        val height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 280F, resources.displayMetrics).toInt()
+        val rect1 = Rect(0, 0, whdth / 2, height / 2)
+        val rect2 = Rect(0, 0, whdth, height)
+        img.clipBounds = rect1
+        img.setOnClickListener {
+            TransitionManager.beginDelayedTransition(root, ChangeClipBounds())
+            img.clipBounds = if(img.clipBounds == rect1) rect2 else rect1
         }
-
-        scene4.setEnterAction {
-            scene4.sceneRoot.btn3.setOnClickListener {
-                transitionManager.transitionTo(scene3)
-            }
-        }
-        transitionManager.transitionTo(scene3)
-
     }
-
 
 
 }
