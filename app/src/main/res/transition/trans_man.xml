@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <transitionManager xmlns:android="http://schemas.android.com/apk/res/android">
     <transition
-        android:fromScene="@layout/scene3"
-        android:toScene="@layout/scene4"
+        android:fromScene="@layout/scene1"
+        android:toScene="@layout/scene2"
         android:transition="@transition/trans1"/>
 
     <transition
-        android:fromScene="@layout/scene4"
-        android:toScene="@layout/scene3"
+        android:fromScene="@layout/scene2"
+        android:toScene="@layout/scene1"
         android:transition="@transition/trans1"/>
 
 </transitionManager>
