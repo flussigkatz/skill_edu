@@ -4,10 +4,7 @@ import android.app.ActivityOptions
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
-import android.transition.Explode
-import android.transition.Slide
-import android.transition.Transition
-import android.transition.TransitionManager
+import android.transition.*
 import android.transition.Visibility.MODE_IN
 import android.transition.Visibility.MODE_OUT
 import android.util.Log
@@ -32,12 +29,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        window.exitTransition = Slide(Gravity.START).apply {
-            mode = Slide.MODE_OUT
+        window.exitTransition = Fade().apply {
+            mode = Fade.MODE_OUT
             excludeTarget(android.R.id.statusBarBackground, true)
             excludeTarget(android.R.id.navigationBarBackground, true)
         }
-        window.reenterTransition = Slide(Gravity.START).apply {
+        window.reenterTransition = Fade().apply {
             duration = 1000
             excludeTarget(android.R.id.statusBarBackground, true)
             excludeTarget(android.R.id.navigationBarBackground, true)
