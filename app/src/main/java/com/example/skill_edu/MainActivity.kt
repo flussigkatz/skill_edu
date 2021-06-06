@@ -31,36 +31,29 @@ class MainActivity : AppCompatActivity() {
         adapter = MyAdapter(9) {
             val viewRect = Rect()
             it.getGlobalVisibleRect(viewRect)
-            val slideIn = Slide().apply {
-                mode = MODE_IN
-                duration = 1000
-                slideEdge = Gravity.START
-
-//                epicenterCallback = object : Transition.EpicenterCallback() {
-//                    override fun onGetEpicenter(transition: Transition?): Rect {
-//                        return viewRect
-//                    }
-//                }
-
+            val explodeOut = Explode().apply {
+                mode = MODE_OUT; duration = 12000;
+                epicenterCallback = object : Transition.EpicenterCallback() {
+                    override fun onGetEpicenter(transition: Transition?): Rect {
+                        return viewRect
+                    }
+                }
             }
 
-            val slideOut = Slide().apply {
-                mode = MODE_OUT
-                duration = 1000
-                slideEdge = Gravity.END
-//                epicenterCallback = object : Transition.EpicenterCallback() {
-//                    override fun onGetEpicenter(transition: Transition?): Rect {
-//                        return viewRect
-//                    }
-//                }
+            val explodeIn = Explode().apply {
+                mode = MODE_IN; duration = 12000;
+                epicenterCallback = object : Transition.EpicenterCallback() {
+                    override fun onGetEpicenter(transition: Transition?): Rect {
+                        return viewRect
+                    }
+                }
             }
-
-            slideOut.addListener({ _ ->
-                TransitionManager.beginDelayedTransition(recycler_view, slideIn)
+            explodeOut.addListener({ _ ->
+                TransitionManager.beginDelayedTransition(recycler_view, explodeIn)
                 recycler_view.adapter = adapter
                 it.setBackgroundResource(R.color.black)
             })
-            TransitionManager.beginDelayedTransition(recycler_view, slideOut)
+            TransitionManager.beginDelayedTransition(recycler_view, explodeOut)
             recycler_view.adapter = emptyAdapter
             it.setBackgroundResource(R.color.black)
         }
