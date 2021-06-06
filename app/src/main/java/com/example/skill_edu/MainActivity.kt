@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
             excludeTarget(android.R.id.statusBarBackground, true)
             excludeTarget(android.R.id.navigationBarBackground, true)
         }
-        root.setOnClickListener {
+        text_main.setOnClickListener {
             val activityOptions = ActivityOptions.makeSceneTransitionAnimation(this)
             startActivity(Intent(this, SecondActivity::class.java), activityOptions.toBundle())
         }
