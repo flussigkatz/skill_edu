@@ -1,5 +1,7 @@
 package com.example.skill_edu
 
+import android.app.ActivityOptions
+import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
 import android.transition.Explode
@@ -13,6 +15,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.TableRow
 import androidx.annotation.IntDef
 import androidx.appcompat.app.AppCompatActivity
@@ -20,44 +23,28 @@ import androidx.core.transition.addListener
 import androidx.core.view.children
 import androidx.core.view.forEach
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_second.*
 
 class MainActivity : AppCompatActivity() {
-    lateinit var adapter: MyAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        window.requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val emptyAdapter = MyAdapter(0)
-        adapter = MyAdapter(9) {
-            val viewRect = Rect()
-            it.getGlobalVisibleRect(viewRect)
-            val explodeOut = Explode().apply {
-                mode = MODE_OUT; duration = 12000;
-                epicenterCallback = object : Transition.EpicenterCallback() {
-                    override fun onGetEpicenter(transition: Transition?): Rect {
-                        return viewRect
-                    }
-                }
-            }
 
-            val explodeIn = Explode().apply {
-                mode = MODE_IN; duration = 12000;
-                epicenterCallback = object : Transition.EpicenterCallback() {
-                    override fun onGetEpicenter(transition: Transition?): Rect {
-                        return viewRect
-                    }
-                }
-            }
-            explodeOut.addListener({ _ ->
-                TransitionManager.beginDelayedTransition(recycler_view, explodeIn)
-                recycler_view.adapter = adapter
-                it.setBackgroundResource(R.color.black)
-            })
-            TransitionManager.beginDelayedTransition(recycler_view, explodeOut)
-            recycler_view.adapter = emptyAdapter
-            it.setBackgroundResource(R.color.black)
+        window.exitTransition = Slide(Gravity.START).apply {
+            mode = Slide.MODE_OUT
+            excludeTarget(android.R.id.statusBarBackground, true)
+            excludeTarget(android.R.id.navigationBarBackground, true)
         }
-
-        recycler_view.adapter = adapter
+        window.reenterTransition = Slide(Gravity.START).apply {
+            duration = 1000
+            excludeTarget(android.R.id.statusBarBackground, true)
+            excludeTarget(android.R.id.navigationBarBackground, true)
+        }
+        root.setOnClickListener {
+            val activityOptions = ActivityOptions.makeSceneTransitionAnimation(this)
+            startActivity(Intent(this, SecondActivity::class.java), activityOptions.toBundle())
+        }
     }
 }
