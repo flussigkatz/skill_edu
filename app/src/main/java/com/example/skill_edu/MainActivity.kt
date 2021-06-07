@@ -13,6 +13,7 @@ import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.ImageView
 import android.widget.TableRow
 import androidx.annotation.IntDef
 import androidx.appcompat.app.AppCompatActivity
@@ -20,7 +21,7 @@ import androidx.core.transition.addListener
 import androidx.core.view.children
 import androidx.core.view.forEach
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_second.*
+import android.util.Pair
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,6 +29,8 @@ class MainActivity : AppCompatActivity() {
         window.requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val image = findViewById<ImageView>(R.id.image)
 
         window.exitTransition = Fade().apply {
             mode = Fade.MODE_OUT
@@ -40,7 +43,8 @@ class MainActivity : AppCompatActivity() {
             excludeTarget(android.R.id.navigationBarBackground, true)
         }
         text_main.setOnClickListener {
-            val activityOptions = ActivityOptions.makeSceneTransitionAnimation(this)
+//            val pair  = Pair(image, "image_name")
+            val activityOptions = ActivityOptions.makeSceneTransitionAnimation(this, Pair(image, "image_name"))
             startActivity(Intent(this, SecondActivity::class.java), activityOptions.toBundle())
         }
     }
