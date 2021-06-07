@@ -26,25 +26,12 @@ import android.util.Pair
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        window.requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val image = findViewById<ImageView>(R.id.image)
-
-        window.exitTransition = Fade().apply {
-            mode = Fade.MODE_OUT
-            excludeTarget(android.R.id.statusBarBackground, true)
-            excludeTarget(android.R.id.navigationBarBackground, true)
-        }
-        window.reenterTransition = Fade().apply {
-            duration = 1000
-            excludeTarget(android.R.id.statusBarBackground, true)
-            excludeTarget(android.R.id.navigationBarBackground, true)
-        }
-        text_main.setOnClickListener {
-            val activityOptions = ActivityOptions.makeSceneTransitionAnimation(this, Pair(image, "image_name"))
-            startActivity(Intent(this, SecondActivity::class.java), activityOptions.toBundle())
-        }
+        supportFragmentManager.beginTransaction()
+            .add(R.id.contaiber, MainFragment())
+            .addToBackStack("MainFragment")
+            .commit()
     }
 }
