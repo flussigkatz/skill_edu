@@ -12,9 +12,7 @@ class PageFragment(var position: Int) : Fragment() {
     val colors = arrayOf(Color.RED, Color.BLUE, Color.YELLOW, Color.GREEN)
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_page, container, false)
     }
 
@@ -23,5 +21,4 @@ class PageFragment(var position: Int) : Fragment() {
         view.text.text = "${position + 1}"
         view.setBackgroundColor(colors[position])
     }
-
 }

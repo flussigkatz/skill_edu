@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
 
         val pagerAdapter = ScreenSlidePagerAdapter(supportFragmentManager)
         view_pager.adapter = pagerAdapter
+        view_pager.setPageTransformer(true, ZoomPageTransformer())
 
 
     }
