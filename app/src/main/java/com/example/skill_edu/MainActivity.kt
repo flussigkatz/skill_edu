@@ -43,8 +43,8 @@ class MainActivity : AppCompatActivity() {
             excludeTarget(android.R.id.navigationBarBackground, true)
         }
         text_main.setOnClickListener {
-//            val pair  = Pair(image, "image_name")
-            val activityOptions = ActivityOptions.makeSceneTransitionAnimation(this, Pair(image, "image_name"))
+            val pair  = Pair(image, "image_name")
+            val activityOptions = ActivityOptions.makeSceneTransitionAnimation(this, pair)
             startActivity(Intent(this, SecondActivity::class.java), activityOptions.toBundle())
         }
     }
