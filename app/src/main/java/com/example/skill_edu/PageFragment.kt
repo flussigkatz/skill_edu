@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_page.view.*
 
 class PageFragment(var position: Int) : Fragment() {
-    val colors = arrayOf(Color.RED, Color.BLUE, Color.YELLOW, Color.GREEN)
+    val colors = arrayOf(Color.RED, Color.BLUE, Color.YELLOW, Color.GREEN, Color.WHITE)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
