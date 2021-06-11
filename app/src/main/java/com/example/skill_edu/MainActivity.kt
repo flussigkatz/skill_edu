@@ -4,67 +4,55 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
 import android.transition.*
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.view.View
 import android.view.View.*
 import android.view.ViewAnimationUtils
 import android.view.animation.LinearInterpolator
 import androidx.appcompat.app.AppCompatActivity
+import androidx.dynamicanimation.animation.DynamicAnimation
+import androidx.dynamicanimation.animation.FlingAnimation
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.math.hypot
 import kotlin.math.roundToInt
 
 
 class MainActivity : AppCompatActivity() {
-    private var isRevealed = false
-
-    private val animDuration = 30000L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        fab.setOnClickListener { reveal() }
+        val flingX = FlingAnimation(fab, DynamicAnimation.X).apply { friction = 0.005f }
+        val flingY = FlingAnimation(fab, DynamicAnimation.Y).apply { friction = 0.005f }
 
+        val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
+            override fun onFling(
+                e1: MotionEvent?,
+                e2: MotionEvent?,
+                velocityX: Float,
+                velocityY: Float
+            ): Boolean {
+                flingX.setStartVelocity(velocityX)
+                flingY.setStartVelocity(velocityY)
 
-    }
+                flingX.start()
+                flingY.start()
 
-    private fun reveal() {
-        val x: Int = fab.x.roundToInt() + fab.width / 2
-        val y: Int = fab.y.roundToInt() + fab.height / 2
-        val startRadius = 0
-        val endRadius = hypot(main_container.width.toDouble(), main_container.height.toDouble())
-
-        if (isRevealed) {
-            val reverseAnim = ViewAnimationUtils.createCircularReveal(
-                button_container,
-                x,
-                y,
-                endRadius.toFloat(),
-                startRadius.toFloat()
-            )
-            reverseAnim.duration = animDuration
-            reverseAnim.interpolator = LinearInterpolator()
-            reverseAnim.start()
-            reverseAnim.addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator?) {
-                    button_container.visibility = GONE
-                }
-            })
-        } else {
-            val anim = ViewAnimationUtils.createCircularReveal(
-                button_container,
-                x,
-                y,
-                startRadius.toFloat(),
-                endRadius.toFloat()
-            )
-            anim.duration = animDuration
-            anim.interpolator = LinearInterpolator()
-            button_container.visibility = VISIBLE
-            anim.start()
+                return true
+            }
         }
-        isRevealed = !isRevealed
+
+        val gestureDetector = GestureDetector(this, gestureListener)
+
+        fab.setOnTouchListener{v, event ->
+            v.performClick()
+            gestureDetector.onTouchEvent(event)
+        }
+
 
     }
+
 
 }
