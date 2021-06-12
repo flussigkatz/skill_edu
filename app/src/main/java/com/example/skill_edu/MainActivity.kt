@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.dynamicanimation.animation.DynamicAnimation
 import androidx.dynamicanimation.animation.FlingAnimation
 import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
+import com.airbnb.lottie.LottieAnimationView
+import com.airbnb.lottie.LottieDrawable
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.math.hypot
 import kotlin.math.roundToInt
@@ -26,12 +28,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val animatedVectorDrawable = AnimatedVectorDrawableCompat.create(this, R.drawable.anim_vector)
-
-        animated_view.setImageDrawable(animatedVectorDrawable)
-
-        animated_view.setOnClickListener { animatedVectorDrawable?.start() }
-
+        val lottieAnimationView: LottieAnimationView = lonim2
+        lottieAnimationView.repeatMode = LottieDrawable.RESTART
+        lottieAnimationView.playAnimation()
 
     }
 
