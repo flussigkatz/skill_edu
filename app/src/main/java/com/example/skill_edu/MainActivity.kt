@@ -2,6 +2,7 @@ package com.example.skill_edu
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
 import android.transition.*
 import android.view.GestureDetector
@@ -13,6 +14,7 @@ import android.view.animation.LinearInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.dynamicanimation.animation.DynamicAnimation
 import androidx.dynamicanimation.animation.FlingAnimation
+import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.math.hypot
 import kotlin.math.roundToInt
@@ -24,32 +26,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val flingX = FlingAnimation(fab, DynamicAnimation.X).apply { friction = 0.005f }
-        val flingY = FlingAnimation(fab, DynamicAnimation.Y).apply { friction = 0.005f }
+        val animatedVectorDrawable = AnimatedVectorDrawableCompat.create(this, R.drawable.anim_vector)
 
-        val gestureListener = object : GestureDetector.SimpleOnGestureListener() {
-            override fun onFling(
-                e1: MotionEvent?,
-                e2: MotionEvent?,
-                velocityX: Float,
-                velocityY: Float
-            ): Boolean {
-                flingX.setStartVelocity(velocityX)
-                flingY.setStartVelocity(velocityY)
+        animated_view.setImageDrawable(animatedVectorDrawable)
 
-                flingX.start()
-                flingY.start()
-
-                return true
-            }
-        }
-
-        val gestureDetector = GestureDetector(this, gestureListener)
-
-        fab.setOnTouchListener{v, event ->
-            v.performClick()
-            gestureDetector.onTouchEvent(event)
-        }
+        animated_view.setOnClickListener { animatedVectorDrawable?.start() }
 
 
     }
