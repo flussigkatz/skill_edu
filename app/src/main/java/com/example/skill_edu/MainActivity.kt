@@ -14,20 +14,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        edit_text.addTextChangedListener(object : TextWatcher{
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        rv.adapter = MyAdapter()
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-            override fun afterTextChanged(s: Editable?) {
-                if (s != null) {
-                    button_next.isEnabled = s.isNotBlank()
-                }
-            }
-        })
-        button_next.setOnClickListener {
-            Toast.makeText(this, "Click", Toast.LENGTH_SHORT).show()
-        }
     }
 
 

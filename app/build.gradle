@@ -47,4 +47,5 @@ dependencies {
 
     //Tests
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
 }
