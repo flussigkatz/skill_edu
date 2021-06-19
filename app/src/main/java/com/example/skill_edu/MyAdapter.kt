@@ -18,6 +18,7 @@ class MyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        holder.itemView.check_box.text = "Item ${position + 1}"
         holder.itemView.image_view.setImageResource(R.drawable.android_logo)
     }
 
