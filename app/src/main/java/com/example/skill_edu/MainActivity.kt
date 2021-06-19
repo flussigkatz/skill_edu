@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        rv.adapter = MyAdapter()
+        recycler_view.adapter = MyAdapter()
 
     }
 
