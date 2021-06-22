@@ -3,8 +3,6 @@ package com.example.skill_edu
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item.view.*
 
@@ -18,8 +16,9 @@ class MyAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        holder.itemView.check_box.text = "Item ${position + 1}"
         holder.itemView.image_view.setImageResource(R.drawable.android_logo)
+        holder.itemView.edit_text2.hint = "${position + 1}"
+        holder.itemView.edit_text1.hint = "${position + 1}"
     }
 
     override fun getItemCount(): Int {
