@@ -8,6 +8,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:stroke_width="20"
-        app:stoke_color="@color/black"/>
+        app:stoke_color="@android:color/holo_green_dark"/>
 
 </RelativeLayout>
