@@ -11,7 +11,7 @@ import android.widget.Button
 class CustomView @JvmOverloads constructor(
     context: Context,
     attributeSet: AttributeSet? = null
-) : androidx.appcompat.widget.AppCompatButton(context, attributeSet) {
+) : View(context, attributeSet) {
 
     var strokeWidthAttr = 0f
     var strokeColorAttr = Color.WHITE
@@ -30,6 +30,22 @@ class CustomView @JvmOverloads constructor(
         } finally {
             attributes.recycle()
         }
+    }
+
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        val heightSize = MeasureSpec.getSize(heightMeasureSpec)
+        val widthSize = MeasureSpec.getSize(widthMeasureSpec)
+        val widthMode = MeasureSpec.getMode(measuredWidth)
+        val heightMode = MeasureSpec.getMode(measuredHeight)
+        println("widthSize $widthSize")
+        println("heightSize $heightSize")
+        println("widthMode $widthMode")
+        println("heightMode $heightMode")
+
+        val resolveWidth = resolveSize(widthSize, measuredWidth)
+        val resolveHeight = resolveSize(heightSize, measuredHeight)
+
+        setMeasuredDimension(resolveWidth, resolveHeight)
     }
 
     private val strokePaint = Paint().apply{
