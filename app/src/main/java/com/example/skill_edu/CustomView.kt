@@ -31,30 +31,67 @@ class CustomView @JvmOverloads constructor(
         }
     }
 
-    private val strokePaint = Paint().apply{
+    private val paint1 = Paint().apply{
         color = strokeColorAttr
-        style = Paint.Style.STROKE
-        strokeWidth = strokeWidthAttr
+        style = Paint.Style.FILL
+    }
+    private val paint2 = Paint().apply{
+        color = strokeColorAttr
+        style = Paint.Style.FILL
+    }
+    private val paint3 = Paint().apply{
+        color = strokeColorAttr
+        style = Paint.Style.FILL
+    }
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        paint1.shader = RadialGradient(
+            width / 2f,
+            height / 3f / 2f,
+            300f,
+            Color.MAGENTA,
+            Color.RED,
+            Shader.TileMode.CLAMP
+        )
+        val colors = intArrayOf(
+            Color.BLUE,
+            Color.CYAN,
+            Color.GREEN,
+            Color.MAGENTA,
+            Color.RED,
+            Color.YELLOW,
+        )
+
+        paint2.shader = LinearGradient(
+            width / 4f + width / 3f,
+            height / 3f * 2f,
+            width / 4f * 3f + width / 8f,
+            height / 3f * 2f + width / 2f,
+            colors,
+            null,
+            Shader.TileMode.MIRROR
+        )
+
     }
 
     val triangle = Path()
-    val a = Point(300,500)
-    val b = Point(800, 500)
-    val c = Point(550, 100)
+
 
     override fun onDraw(canvas: Canvas?) {
-//        canvas?.drawLine(0F, 0F, width.toFloat(), height.toFloat(), strokePaint )
-        canvas?.drawRect(300f, 500f, 800f, 1000f, strokePaint)
-        canvas?.drawRect(600f, 800f, 700f, 1000f, strokePaint)
-        canvas?.drawPoint(675f, 900f, strokePaint)
+        val rect = (height / 3) + (width / 2)
+        canvas?.drawRect(
+            width / 4f, height / 3f, width / 4f * 3f, rect.toFloat(), paint2
+        )
         triangle.fillType = Path.FillType.EVEN_ODD
-        triangle.moveTo(a.x.toFloat(), a.y.toFloat())
-        triangle.lineTo(b.x.toFloat(), b.y.toFloat())
-        triangle.lineTo(c.x.toFloat(), c.y.toFloat())
+        triangle.moveTo(width / 2f, height / 3f * 2f)
+        triangle.lineTo(width / 4f, height - 100f)
+        triangle.lineTo(width / 4f * 3f, height -100f)
         triangle.close()
-        canvas?.drawPath(triangle, strokePaint)
-        canvas?.drawCircle(550f, 300f, 40f, strokePaint)
+        canvas?.drawPath(triangle, paint3)
+        canvas?.drawCircle(width / 2f, height / 3f / 2f, 300f, paint1)
 
     }
+
 
 }
