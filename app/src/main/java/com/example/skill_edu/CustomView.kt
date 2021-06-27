@@ -32,18 +32,28 @@ class CustomView @JvmOverloads constructor(
         }
     }
 
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val heightSize = MeasureSpec.getSize(heightMeasureSpec)
-        val widthSize = MeasureSpec.getSize(widthMeasureSpec)
-        val widthMode = MeasureSpec.getMode(measuredWidth)
-        val heightMode = MeasureSpec.getMode(measuredHeight)
-        println("widthSize $widthSize")
-        println("heightSize $heightSize")
-        println("widthMode $widthMode")
-        println("heightMode $heightMode")
+    fun log (widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        when(MeasureSpec.getMode(widthMeasureSpec)) {
+            MeasureSpec.AT_MOST -> println("AT_MOST ${App.count}")
+            MeasureSpec.EXACTLY -> println("EXACTLY ${App.count}")
+            MeasureSpec.UNSPECIFIED -> println("UNSPECIFIED ${App.count}")
+        }
+        App.count++
+//        println("widthSize ${MeasureSpec.getSize(widthMeasureSpec)}")
+//        println("heightSize ${MeasureSpec.getSize(heightMeasureSpec)}")
+//        println("widthMode ${MeasureSpec.getMode(widthMeasureSpec)}")
+//        println("heightMode ${MeasureSpec.getMode(heightMeasureSpec)}")
+    }
 
-        val resolveWidth = resolveSize(widthSize, measuredWidth)
-        val resolveHeight = resolveSize(heightSize, measuredHeight)
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        log(widthMeasureSpec, heightMeasureSpec)
+
+        val resolveWidth = resolveSize(
+            MeasureSpec.getSize(widthMeasureSpec), widthMeasureSpec
+        )
+        val resolveHeight = resolveSize(
+            MeasureSpec.getSize(heightMeasureSpec), heightMeasureSpec
+        )
 
         setMeasuredDimension(resolveWidth, resolveHeight)
     }

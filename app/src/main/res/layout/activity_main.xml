@@ -4,10 +4,35 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.example.skill_edu.CustomView
-        android:layout_width="500dp"
-        android:layout_height="500dp"
-        app:stroke_width="20"
-        app:stoke_color="@color/black"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <com.example.skill_edu.CustomView
+            android:id="@+id/id1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:stroke_width="20"
+            android:background="#00000000"
+            app:stoke_color="@color/black"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/id2"/>
+
+        <com.example.skill_edu.CustomView
+            android:id="@+id/id2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:stroke_width="60"
+            android:background="#00000000"
+            app:stoke_color="@color/purple_500"
+            app:layout_constraintTop_toBottomOf="@+id/id1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </RelativeLayout>
