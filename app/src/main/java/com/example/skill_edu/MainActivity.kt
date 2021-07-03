@@ -5,12 +5,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.example.skill_edu.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.button.setOnClickListener {
+            Toast.makeText(this, "ViewBinding in Activity", Toast.LENGTH_SHORT).show()
+        }
     }
-
-
 }
