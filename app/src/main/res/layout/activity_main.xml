@@ -3,36 +3,22 @@
 
     <data>
 
-        <import type="com.example.skill_edu.Converter" />
-
-        <import type="com.example.skill_edu.User" />
-
-        <variable
-            name="user"
-            type="androidx.databinding.ObservableField&lt;User>" />
 
     </data>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:inputType="numberDecimal"
-            android:text='@={(Converter.doubleToString(user.cashObservable))}'
-            android:textSize="32sp" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            color1 = "@{@color/color1}"
+            color2 = "@{@color/color2}"
+            color3 = "@{@color/color3}"
+            />
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:inputType="numberDecimal"
-            android:text='@={Converter.doubleToString(Converter.rubToDol(user.cashObservable))}'
-            android:textSize="32sp" />
 
-    </LinearLayout>
+
+    </FrameLayout>
 </layout>
