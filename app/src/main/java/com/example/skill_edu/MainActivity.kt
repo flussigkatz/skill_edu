@@ -17,8 +17,6 @@ class MainActivity : AppCompatActivity() {
             this,
             R.layout.activity_main
         )
-        binding.cash = 10
-        binding.notifyPropertyChanged(BR.cash)
     }
 
 
