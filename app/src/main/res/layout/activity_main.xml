@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:inputType="numberDecimal"
-            android:text='@={Converter.doubleToString(user.cashObservable)}'
+            android:text='@={(Converter.doubleToString(user.cashObservable))}'
             android:textSize="32sp" />
 
         <EditText

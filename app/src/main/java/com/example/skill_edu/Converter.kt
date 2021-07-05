@@ -13,7 +13,7 @@ object Converter {
     @JvmStatic
     @InverseMethod("stringToDouble")
     fun doubleToString(value: Double):String {
-        return value.toString()
+        return String.format("%.2f", value)
     }
 
     @JvmStatic
