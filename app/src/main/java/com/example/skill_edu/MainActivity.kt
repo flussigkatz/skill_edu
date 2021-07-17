@@ -12,26 +12,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val gson = Gson()
-
-        val data =  Data("ava",
-            "email",
-            "Ivan",
-            666,
-            "Ivanov")
-        val toJson = gson.toJson(data)
-        println("!!! $toJson")
 
 
     }
-
-    data class Data(
-        val avatar: String,
-        val email: String,
-        val firstName: String,
-        val id: Int,
-        val lastName: String
-    )
-
-
 }
