@@ -3,29 +3,35 @@ package com.example.skill_edu
 import android.content.Context
 import dagger.Module
 import dagger.Provides
-import dagger.multibindings.IntoMap
-import dagger.multibindings.IntoSet
-import dagger.multibindings.StringKey
+import dagger.BindsInstance
+import dagger.Component
 
 
-abstract class FormatExporter(context: Context)
-class XmlFormatExporter(context: Context) : FormatExporter(context)
-class CSVFormatExporter(context: Context) : FormatExporter(context)
+abstract class Feature(context: Context)
+class FeatureImpl(context: Context) : Feature(context)
 
 @Module
-class ModuleA {
-    @IntoMap
-    @StringKey("xml")
+class AppModule {
     @Provides
-    fun xmlFileExporter(context: Context): FormatExporter {
-        return XmlFormatExporter(context)
+    fun feature1(context: Context): Feature {
+        return FeatureImpl(context)
     }
 
-    @IntoMap
-    @StringKey("csv")
-    @Provides
-    fun provideCSVFileExporter(context: Context): FormatExporter {
-        return CSVFormatExporter(context)
-    }
 
 }
+
+
+@Component(modules = [AppModule::class])
+interface AppComponent {
+    fun getFeature1(): Feature
+
+    fun inject(mainActivity: MainActivity)
+
+    @Component.Builder
+    interface Builder {
+        @BindsInstance
+        fun application(context: Context): Builder
+        fun build(): AppComponent
+    }
+}
+
