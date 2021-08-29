@@ -10,6 +10,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val shared = this.getSharedPreferences("test", MODE_PRIVATE)
+
+        println("!!! ${shared.getString("key", "defalut")}")
+
+        shared.edit().putString("key", "Data").apply()
+
+        println("!!! ${shared.getString("key", "defalut")}")
+
     }
 
 
