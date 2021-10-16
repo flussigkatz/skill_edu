@@ -4,53 +4,37 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
+import android.widget.TextView
 import android.widget.Toast
 import kotlinx.coroutines.*
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val view = findViewById<TextView>(R.id.text)
 
-        val scope = CoroutineScope(Job())
-        val jobLazy = retJobLzy(scope)
+        val scope = CoroutineScope(Dispatchers.Main)
 
         scope.launch {
-            launch {
-                repeat(10) {
-                    println("111 $it")
-                    delay(100)
-                }
+            launch(Dispatchers.Default) {
+                val res = getText()
+                view.text = res
             }
-            val jobAsync = async {
-                repeat(10) {
-                    println("222 $it")
-                    delay(100)
-                }
-                "End"
+            if (view.isAttachedToWindow) {
+                Thread.sleep(5000)
             }
-
-            println(jobAsync.await())
-
-            repeat(10) {
-                println("333 $it")
-                jobLazy.start()
-                delay(100)
-            }
-
-
         }
-//        println("!!!!!!!!!!!!!!!!")
-//        Thread.sleep(10000)
-//        println("?????????????????")
+
     }
 
-    private fun retJobLzy(scope: CoroutineScope): Job {
-        return scope.launch(start = CoroutineStart.LAZY) {
-            repeat(10) {
-                println("444 $it")
-                delay(100)
-            }
+    private suspend fun getText(): String {
+        return suspendCoroutine {
+            Thread.sleep(5000)
+            it.resume("Success")
         }
     }
 
