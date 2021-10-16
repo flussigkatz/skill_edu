@@ -8,8 +8,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
 import kotlinx.coroutines.*
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
+import kotlin.coroutines.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,15 +16,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val view = findViewById<TextView>(R.id.text)
 
-        val scope = CoroutineScope(Dispatchers.Main)
+        val scope = CoroutineScope(EmptyCoroutineContext)
+        contextToString(scope.coroutineContext)
 
         scope.launch {
-            launch(Dispatchers.Default) {
+            contextToString(coroutineContext)
+            launch(Dispatchers.Main) {
+                contextToString(coroutineContext)
                 val res = getText()
                 view.text = res
-            }
-            if (view.isAttachedToWindow) {
-                Thread.sleep(5000)
             }
         }
 
@@ -33,9 +32,12 @@ class MainActivity : AppCompatActivity() {
 
     private suspend fun getText(): String {
         return suspendCoroutine {
-            Thread.sleep(5000)
             it.resume("Success")
         }
+    }
+
+    private fun contextToString(context: CoroutineContext) {
+        println("${context[Job]}   ${context[ContinuationInterceptor]}")
     }
 
 
