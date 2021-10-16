@@ -9,6 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import kotlinx.coroutines.*
 import kotlin.coroutines.*
+import kotlinx.coroutines.delay as delay
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,14 +18,29 @@ class MainActivity : AppCompatActivity() {
         val view = findViewById<TextView>(R.id.text)
 
         val scope = CoroutineScope(EmptyCoroutineContext)
+        val exHand = CoroutineExceptionHandler { coroutineContext, throwable ->
+            println(throwable.localizedMessage)
+        }
         contextToString(scope.coroutineContext)
 
         scope.launch {
             contextToString(coroutineContext)
-            launch(Dispatchers.Main) {
+            launch {
                 contextToString(coroutineContext)
-                val res = getText()
-                view.text = res
+                withContext(Dispatchers.Main) {
+                    val res = runBlocking {
+                        getText()
+                    }
+                    view.text = res
+                }
+            }
+        }
+
+        scope.launch {
+            supervisorScope {
+                launch(exHand) {
+                    1 / 0
+                }
             }
         }
 
@@ -32,6 +48,7 @@ class MainActivity : AppCompatActivity() {
 
     private suspend fun getText(): String {
         return suspendCoroutine {
+            Thread.sleep(3000)
             it.resume("Success")
         }
     }
