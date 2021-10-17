@@ -6,6 +6,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import java.lang.Exception
 import kotlin.coroutines.EmptyCoroutineContext
 
 class MainActivity : AppCompatActivity() {
@@ -14,27 +15,45 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val channel = Channel<String>(Channel.BUFFERED)
-        val flow = createFlow("Num")
-        val flow2 = createFlow()
+        val flow = createFlow("Num").take(6)
+        val flow2 = createFlow().transform {
+            emit(it + it)
+        }
 
         CoroutineScope(EmptyCoroutineContext).launch {
             flow.collect {
                 channel.send(it)
             }
+            println("first " + flow.first())
+            println("last " + flow.last())
+            try {
+                println("single " + flow.single())
+            } catch (e: Exception) {
+                println(e)
+            }
+            val reduce = flow2.reduce { accumulator, value ->
+                accumulator + value
+            }
+            println("reduce $reduce")
+
+            val fold = flow2.fold("Sum: ", {a, b -> a + b})
+
+            println("reduce $fold")//?????????
+
             channel.close()
         }
 
         CoroutineScope(EmptyCoroutineContext).launch {
             launch {
                 for (i in channel) {
-                    println(i)
+//                    println(i)
                 }
             }
         }
         CoroutineScope(EmptyCoroutineContext).launch {
             launch {
                 flow2.collect {
-                    println(it)
+//                    println(it)
                 }
             }
         }
@@ -50,10 +69,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun createFlow(): Flow<String> {
+    private fun createFlow(): Flow<Int> {
         return flow {
             repeat(5) {
-                emit((it + 1).toString())
+                emit((it + 1))
             }
         }
     }
