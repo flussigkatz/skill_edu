@@ -2,12 +2,9 @@ package com.example.skill_edu
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import android.view.View
-import android.view.ViewGroup
-import android.widget.RelativeLayout
-import android.widget.TextView
-import android.widget.Toast
 import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.BroadcastChannel
+import kotlinx.coroutines.channels.Channel
 import kotlin.coroutines.*
 import kotlinx.coroutines.delay as delay
 
@@ -15,46 +12,25 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val view = findViewById<TextView>(R.id.text)
 
-        val scope = CoroutineScope(EmptyCoroutineContext)
-        val exHand = CoroutineExceptionHandler { coroutineContext, throwable ->
-            println(throwable.localizedMessage)
-        }
-        contextToString(scope.coroutineContext)
+        val broadcastChannel = BroadcastChannel<Int>(10)
 
-        scope.launch {
-            contextToString(coroutineContext)
-            launch {
-                contextToString(coroutineContext)
-                withContext(Dispatchers.Main) {
-                    val res = runBlocking {
-                        getText()
-                    }
-                    view.text = res
-                }
+        CoroutineScope(EmptyCoroutineContext).launch {
+
+            repeat(9) {
+                delay(100)
+                broadcastChannel.send(it)
             }
         }
 
-        scope.launch {
-            supervisorScope {
-                launch(exHand) {
-                    1 / 0
-                }
+        CoroutineScope(EmptyCoroutineContext).launch {
+            delay(1000)
+            val channel = broadcastChannel.openSubscription()
+            for (i in channel) {
+                println(i)
             }
         }
 
-    }
-
-    private suspend fun getText(): String {
-        return suspendCoroutine {
-            Thread.sleep(3000)
-            it.resume("Success")
-        }
-    }
-
-    private fun contextToString(context: CoroutineContext) {
-        println("${context[Job]}   ${context[ContinuationInterceptor]}")
     }
 
 
