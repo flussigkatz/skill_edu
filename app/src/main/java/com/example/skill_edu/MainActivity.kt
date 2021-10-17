@@ -3,10 +3,8 @@ package com.example.skill_edu
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import kotlin.coroutines.EmptyCoroutineContext
 
 class MainActivity : AppCompatActivity() {
@@ -14,68 +12,25 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val channel = Channel<String>(Channel.BUFFERED)
-        val flow = createFlow("Num").take(6)
-        val flow2 = createFlow().transform {
-            emit(it + it)
-        }
+        val flowForSend = MutableSharedFlow<Int>()
+        val a = 0
 
         CoroutineScope(EmptyCoroutineContext).launch {
-            flow.collect {
-                channel.send(it)
-            }
-            println("first " + flow.first())
-            println("last " + flow.last())
-            try {
-                println("single " + flow.single())
-            } catch (e: Exception) {
-                println(e)
-            }
-            val reduce = flow2.reduce { accumulator, value ->
-                accumulator + value
-            }
-            println("reduce $reduce")
-
-            val fold = flow2.fold("Sum: ", {a, b -> a + b})
-
-            println("reduce $fold")//?????????
-
-            channel.close()
+                flowForSend.tryEmit(a)
         }
+        val flowForReceive = flowForSend.asSharedFlow()
 
         CoroutineScope(EmptyCoroutineContext).launch {
-            launch {
-                for (i in channel) {
-//                    println(i)
-                }
+            flowForReceive.collect {
+                println("1: $it")
             }
         }
         CoroutineScope(EmptyCoroutineContext).launch {
-            launch {
-                flow2.collect {
-//                    println(it)
-                }
+            flowForReceive.collect {
+                println("2: $it")
             }
         }
 
 
     }
-
-    private fun createFlow(s: String): Flow<String> {
-        return flow {
-            repeat(5) {
-                emit(s + (it + 1))
-            }
-        }
-    }
-
-    private fun createFlow(): Flow<Int> {
-        return flow {
-            repeat(5) {
-                emit((it + 1))
-            }
-        }
-    }
-
-
 }
