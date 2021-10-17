@@ -2,11 +2,11 @@ package com.example.skill_edu
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.BroadcastChannel
-import kotlinx.coroutines.channels.Channel
-import kotlin.coroutines.*
-import kotlinx.coroutines.delay as delay
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlin.coroutines.EmptyCoroutineContext
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
             delay(1000)
             val channel = broadcastChannel.openSubscription()
             for (i in channel) {
-                println(i)
+                println("!!!$i")
             }
         }
 
