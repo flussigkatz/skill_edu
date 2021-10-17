@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.BroadcastChannel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.coroutines.EmptyCoroutineContext
 
@@ -16,6 +17,7 @@ class MainActivity : AppCompatActivity() {
 
         CoroutineScope(EmptyCoroutineContext).launch {
             repeat(9) {
+                delay(1)
                 broadcastChannel.send(it)
             }
         }
@@ -23,7 +25,13 @@ class MainActivity : AppCompatActivity() {
         CoroutineScope(EmptyCoroutineContext).launch {
             val channel = broadcastChannel.openSubscription()
             for (i in channel) {
-                println("!!!$i")
+                println("1: $i")
+            }
+        }
+        CoroutineScope(EmptyCoroutineContext).launch {
+            val channel = broadcastChannel.openSubscription()
+            for (i in channel) {
+                println("2: $i")
             }
         }
 
