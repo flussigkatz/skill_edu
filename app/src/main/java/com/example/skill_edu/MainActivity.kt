@@ -11,25 +11,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        println("Start")
 
+        Observable.just(1,2,3,4).map { Math.sqrt(it.toDouble()) }.filter{it % 1.0 == 0.0}
+            .subscribe{ println(it.toInt())}
 
-        val flow = object : Observable<Int>() {
-            override fun subscribeActual(observer: Observer<in Int>) {
-                observer.onNext(5)
-                observer.onNext(3)
-                observer.onNext(4)
-                observer.onComplete()
-            }
-        }
+        /*val o = Observable.just(1,2,3, 4).filter{it % 2 != 0}
 
-        val subscriber = Consumer<Int> { println(it) }
-
-        val d = flow.subscribe(subscriber)
-
-        d.dispose()
-
-
+        o.doOnSubscribe { println("Sub") }
+            .doOnComplete { println("End") }
+            .doOnNext { println("------------") }
+            .subscribe{ println(it)}*/
     }
 
 
