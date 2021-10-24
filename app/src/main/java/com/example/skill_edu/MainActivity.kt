@@ -1,6 +1,7 @@
 package com.example.skill_edu
 
 import android.os.Bundle
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Observer
@@ -11,16 +12,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val btn = findViewById<Button>(R.id.btn)
 
-        Observable.just(1,2,3,4).map { Math.sqrt(it.toDouble()) }.filter{it % 1.0 == 0.0}
-            .subscribe{ println(it.toInt())}
 
-        /*val o = Observable.just(1,2,3, 4).filter{it % 2 != 0}
+//        Observable.just(1,2,3,4).subscribe{ println(it.toInt())}
 
-        o.doOnSubscribe { println("Sub") }
-            .doOnComplete { println("End") }
+
+
+
+        /*o.doOnSubscribe { println("Sub") }
             .doOnNext { println("------------") }
-            .subscribe{ println(it)}*/
+            .doOnComplete {
+                println("------------")
+                println("End")
+            }
+            .subscribe { println(it) }*/
     }
 
 

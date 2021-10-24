@@ -5,12 +5,11 @@
     android:id="@+id/root"
     >
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/text"
-        android:text="Hello World!"
-        android:textAppearance="@color/black"
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Press me"
         android:textSize="32sp"/>
 
 </RelativeLayout>
