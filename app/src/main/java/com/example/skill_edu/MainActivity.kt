@@ -12,6 +12,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.PublishSubject
 import io.reactivex.rxjava3.subjects.ReplaySubject
 import java.lang.Thread.currentThread
+import java.util.*
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
@@ -27,30 +28,11 @@ class MainActivity : AppCompatActivity() {
 
         println("------------Start------------")
 
-        val o = Observable.just(1, 2)
-            .doOnNext {
-                println("!Emit " + currentThread().name)
-            }
-            .subscribeOn(Schedulers.from(Executors.newSingleThreadExecutor()))
-            .observeOn(Schedulers.single())
-            .map {
-                println("!Map1 " + currentThread().name)
-                it + it
-            }
-            .observeOn(Schedulers.io())
-            .filter {
-                println("!Filter " + currentThread().name)
-                it > 1
-            }
-            .observeOn(Schedulers.trampoline())
-            .map {
-                println("!Map2 " + currentThread().name)
-                it + it
-            }
-            .observeOn(AndroidSchedulers.mainThread())
+        val o = Observable.just("1", "2", "Head", "Dog")
+            .map { it.lowercase() }
+            .filter{ it.contains("d")}
             .subscribe {
-                txt.text = it.toString()
-                println("!Sub " + currentThread().name)
+                println("!Sub ${it.uppercase()}")
             }
 
 
