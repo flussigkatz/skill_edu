@@ -30,45 +30,34 @@ class MainActivity : AppCompatActivity() {
 
         println("------------Start------------")
 
-        val o1 = Observable.just(1, 2, 3).delay(1, TimeUnit.MILLISECONDS)
-//            .subscribe {
-//                println("${ System.currentTimeMillis() } : $it  flatMap")
-//            }
+        val o1 = Observable.just(1, 2, 3)
+            .take(2)
+            .scan{i1, i2 ->
+                i1 + i2
+            }
+            .subscribe {
+                println("$it  o1")
+            }
 
         val o2 = Observable.just(4, 5, 6)
-//            .subscribe {
-//                println("${ System.currentTimeMillis() } : $it  concatMap")
-//            }
+            .reduce { t1, t2 -> t1 + t2 }
+            .subscribe {
+                println("$it  o2")
+            }
 
         val o3 = Observable.just(7, 8, 9)
-            .withLatestFrom(o2){o1, o2 ->
-                "o1: $o1 | o2: $o2"
-            }.subscribe{
-                println(it)
+            .takeLast(2)
+            .groupBy { it % 3 == 0 }
+            .flatMapSingle { it.toList() }
+            .subscribe{
+                println("$it  o3")
             }
 
         val o4 = Observable.just(10, 11, 12)
-            .zipWith(o1){o1, o2 ->
-                "!o1: $o1 | o2: $o2"
-            }.subscribe{
-                println(it)
+            .takeUntil{it > 10}
+            .subscribe{
+                println("$it  o4")
             }
-
-        val combiner = Observable.combineLatest(o1, o2) {o1, o2 ->
-            "o1: $o1 | o2: $o2"
-        }.subscribe{
-            println(it)
-        }
-
-        val merge = Observable.merge(o1, o2).subscribe{ println(it)}
-        val concat = Observable.concat(o1, o2).subscribe{ println(it)}
-
-        val zip = Observable.zip(o1, o2) {o1 ,o2 ->
-            "o1: $o1 | o2: $o2"
-        }.subscribe{
-            println(it)
-        }
-
 
 
     }
