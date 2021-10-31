@@ -22,47 +22,52 @@ class MainActivity : AppCompatActivity() {
         var index = 0
 
         val list = listOf(1, 2, 3)
-        val arr = arrayOf(1, 2, 3)
+        val list1 = mutableListOf<Int>()
+
+        for (i in 0 .. 10) {
+            list1.add(i)
+        }
 
         println("------------Start------------")
 
-        /*val o = Observable.just(R.drawable.ic_launcher_foreground,
-            R.drawable.qwe,
-            R.drawable.clock,
-            R.drawable.asd)
-            .observeOn(Schedulers.io())
-            .doOnNext {
-                Thread.sleep(2000)
-            }
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
-                img.setImageResource(it)
-            }*/
+        val o1 = Observable.just(1, 2, 3).delay(1, TimeUnit.MILLISECONDS)
+//            .subscribe {
+//                println("${ System.currentTimeMillis() } : $it  flatMap")
+//            }
 
+        val o2 = Observable.just(4, 5, 6)
+//            .subscribe {
+//                println("${ System.currentTimeMillis() } : $it  concatMap")
+//            }
 
-        val flatMap = Observable.just(1, 2, 3)
-            .flatMap {
-                Observable.just(it).observeOn(Schedulers.io()).doOnNext { Thread.sleep(3000) }
-            }.subscribe {
-                println("${ System.currentTimeMillis() } : $it  flatMap")
-                println(Thread.currentThread().name)
+        val o3 = Observable.just(7, 8, 9)
+            .withLatestFrom(o2){o1, o2 ->
+                "o1: $o1 | o2: $o2"
+            }.subscribe{
+                println(it)
             }
 
-        val concatMap = Observable.just(1, 2, 3)
-            .concatMap {
-                Observable.just(it).observeOn(Schedulers.io()).doOnNext { Thread.sleep(3000) }
-            }.subscribe {
-                println("${ System.currentTimeMillis() } : $it  concatMap")
-                println(Thread.currentThread().name)
+        val o4 = Observable.just(10, 11, 12)
+            .zipWith(o1){o1, o2 ->
+                "!o1: $o1 | o2: $o2"
+            }.subscribe{
+                println(it)
             }
 
-        val noFlatMap = Observable.just(1, 2, 3)
-            .observeOn(Schedulers.io())
-            .subscribe {
-                println("${ System.currentTimeMillis() } : $it  noFlatMap")
-                println(Thread.currentThread().name)
-                Thread.sleep(3000)
-            }
+        val combiner = Observable.combineLatest(o1, o2) {o1, o2 ->
+            "o1: $o1 | o2: $o2"
+        }.subscribe{
+            println(it)
+        }
+
+        val merge = Observable.merge(o1, o2).subscribe{ println(it)}
+        val concat = Observable.concat(o1, o2).subscribe{ println(it)}
+
+        val zip = Observable.zip(o1, o2) {o1 ,o2 ->
+            "o1: $o1 | o2: $o2"
+        }.subscribe{
+            println(it)
+        }
 
 
 
