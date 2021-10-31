@@ -6,6 +6,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.BackpressureStrategy
+import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.*
@@ -24,40 +26,72 @@ class MainActivity : AppCompatActivity() {
         val list = listOf(1, 2, 3)
         val list1 = mutableListOf<Int>()
 
-        for (i in 0 .. 10) {
+        for (i in 0..10) {
             list1.add(i)
         }
 
         println("------------Start------------")
 
-        val o1 = Observable.just(1, 2, 3)
-            .take(2)
-            .scan{i1, i2 ->
-                i1 + i2
+        /*val o1 = Observable.create<Int> { sub ->
+            btn.setOnClickListener {
+                sub.onNext(++index)
+                btn.text = index.toString()
             }
+        }.debounce(1, TimeUnit.SECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                println("$it  o1")
-            }
+                txt.text = it.toString()
+            }*/
 
-        val o2 = Observable.just(4, 5, 6)
-            .reduce { t1, t2 -> t1 + t2 }
+        /*val o1 = Observable.create<Int> { sub ->
+            btn.setOnClickListener {
+                sub.onNext(++index)
+                btn.text = index.toString()
+            }
+        }.throttleLatest(1, TimeUnit.SECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                println("$it  o2")
-            }
+                txt.text = it.toString()
+            }*/
 
-        val o3 = Observable.just(7, 8, 9)
-            .takeLast(2)
-            .groupBy { it % 3 == 0 }
+        /*val o1 = Observable.create<Int> { sub ->
+            btn.setOnClickListener {
+                sub.onNext(++index)
+                btn.text = index.toString()
+            }
+        }.window(2, TimeUnit.SECONDS)
             .flatMapSingle { it.toList() }
-            .subscribe{
-                println("$it  o3")
-            }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                txt.text = it.toString()
+            }*/
 
-        val o4 = Observable.just(10, 11, 12)
-            .takeUntil{it > 10}
-            .subscribe{
-                println("$it  o4")
+        /*val o1 = Observable.create<Int> { sub ->
+            btn.setOnClickListener {
+                sub.onNext(++index)
+                btn.text = index.toString()
             }
+        }.sample(1, TimeUnit.SECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                txt.text = it.toString()
+            }*/
+
+        val o1 = Flowable.create<Int>({ sub ->
+            btn.setOnClickListener {
+                for(i in 1 .. 100) {
+                    sub.onNext(++index)
+                }
+                btn.text = index.toString()
+            }
+        }, BackpressureStrategy.DROP)
+            .delay(2, TimeUnit.SECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+            txt.text = it.toString()
+        }
+
+
 
 
     }
