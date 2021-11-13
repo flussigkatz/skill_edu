@@ -1,5 +1,5 @@
 package com.example.core_api.db
 
-interface DataBaseContract {
+interface DatabaseContract {
     fun itemsDao(): ItemsDao
 }

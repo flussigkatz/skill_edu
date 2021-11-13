@@ -6,7 +6,7 @@ import com.example.skill_edu.di.FacadeComponent
 import javax.inject.Inject
 
 class App : Application() {
-
+    //Инжектим доступ к БД
     @Inject
     lateinit var itemsDao: ItemsDao
 
@@ -14,18 +14,17 @@ class App : Application() {
         super.onCreate()
         instance = this
         getFacade().inject(this)
-        println(itemsDao)
-        println(instance)
-
     }
 
     private fun getFacade(): FacadeComponent {
+        //Создаем компонент
         return facadeComponent ?: FacadeComponent.init(this).also {
             facadeComponent = it
         }
     }
 
     companion object {
+        //Ссылка для доступа к itemsDao из активити
         lateinit var instance: App
             private set
         private var facadeComponent: FacadeComponent? = null

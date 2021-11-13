@@ -3,8 +3,8 @@ package com.example.skill_edu.di
 import android.app.Application
 import android.content.Context
 import com.example.core_api.AppProvider
-import dagger.BindsInstance
 import dagger.Component
+import dagger.BindsInstance
 import javax.inject.Singleton
 
 @Singleton

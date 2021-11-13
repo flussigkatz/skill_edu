@@ -2,30 +2,29 @@ package com.example.core_impl
 
 import android.content.Context
 import androidx.room.Room
-import com.example.core_api.db.DataBaseContract
+import com.example.core_api.db.DatabaseContract
 import com.example.core_api.db.ItemsDao
 import dagger.Module
 import dagger.Provides
+import dagger.Reusable
 import javax.inject.Singleton
 
 private const val DATABASE_NAME = "ITEMS_DB"
 
 @Module
-object DataBaseModule {
+class DatabaseModule {
     @Provides
-    @Singleton
-    fun provideItemsDao(dataBaseContract: DataBaseContract): ItemsDao {
-        return dataBaseContract.itemsDao()
+    @Reusable
+    fun provideItemsDao(databaseContract: DatabaseContract): ItemsDao {
+        return databaseContract.itemsDao()
     }
 
     @Provides
     @Singleton
-    fun provideItemsDataBase(context: Context): DataBaseContract {
+    fun provideItemsDatabase(context: Context): DatabaseContract {
         return Room.databaseBuilder(
             context,
-            ItemsDataBase::class.java,
-            DATABASE_NAME).build()
+            ItemsDatabase::class.java, DATABASE_NAME
+        ).build()
     }
-
-
 }
