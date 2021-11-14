@@ -1,59 +1,39 @@
 package com.example.skill_edu
 
-import android.content.ComponentName
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.content.ServiceConnection
+import android.content.IntentFilter
 import android.os.Bundle
-import android.os.IBinder
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.skill_edu.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var firstService: FirstService
-    private var isBound = false
-    private val connection = object : ServiceConnection {
-        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-            val binder = service as FirstService.LocalBinder
-            firstService = binder.getService()
-            isBound = true
-        }
-
-        override fun onServiceDisconnected(name: ComponentName?) {
-            isBound = false
-        }
-
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-        val intent = Intent(this, FirstService::class.java)
-            intent.also {
-            bindService(it, connection, Context.BIND_AUTO_CREATE)
-        }
-        binding.btnStart.setOnClickListener {
-            println("!!!btnStart")
-            if (!isBound) return@setOnClickListener
-            binding.txt.text = firstService.getRandomInt().toString()
+        val receiver = SecondReceiver()
+        val iFilter = IntentFilter().also {
+            it.addAction(Intent.ACTION_AIRPLANE_MODE_CHANGED)
+            it.addAction(Intent.ACTION_BATTERY_CHANGED)
         }
 
-        binding.btnStop.setOnClickListener {
-            println("!!!btnStop")
-//            stopService(intent)
-        }
+        registerReceiver(receiver, iFilter)
+
     }
 
-    override fun onDestroy() {
-        intent.also {
-            unbindService(connection)
+    inner class SecondReceiver : BroadcastReceiver() {
+
+        override fun onReceive(context: Context, intent: Intent) {
+            println("!!! ${intent?.action}")
+//        println("!!! Hi!")
+            Toast.makeText(context, "Hi!", Toast.LENGTH_SHORT).show()
         }
-        super.onDestroy()
     }
 
 
