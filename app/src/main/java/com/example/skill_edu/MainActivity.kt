@@ -3,6 +3,9 @@ package com.example.skill_edu
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.drawable.Icon
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -13,6 +16,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.example.skill_edu.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -26,6 +30,12 @@ class MainActivity : AppCompatActivity() {
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         val id = 655432
         lateinit var notification: Notification.Builder
+        val bitmap = BitmapFactory.decodeResource(resources, R.drawable.android_logo)
+        val longtext = "asdasdasdasdasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdsadsad" +
+                "asdasdasdasdasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdsadsad" +
+                "asdasdasdasdasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdsadsad" +
+                "asdasdasdasdasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdsadsad" +
+                "asdasdasdasdasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdsadsad"
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = "CHANNEL_NAME"
             val descriptionText = "My Channel"
@@ -34,19 +44,28 @@ class MainActivity : AppCompatActivity() {
             mChannel.description = descriptionText
             notificationManager.createNotificationChannel(mChannel)
             notification = Notification.Builder(this, CHANNEL_ID)
-                .setContentTitle("Notify")
-                .setContentText("Text")
-                .setAutoCancel(true)
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setTimeoutAfter(5000)
+                .setColor(getColor(R.color.teal_200))
+                .setLargeIcon(Icon.createWithResource(this, R.drawable.ic_launcher_foreground))
         } else {
             notification = Notification.Builder(this)
-                .setContentTitle("Notify")
-                .setContentText("Text")
-                .setAutoCancel(true)
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
         }
 
-        binding.edit.addTextChangedListener(object : TextWatcher{
+        notification.setContentTitle("Notify")
+            .setOngoing(true)
+            .setAutoCancel(true)
+            .setShowWhen(true)
+            .setOngoing(true)
+            .setProgress(100, 0, true)
+            .setContentText("text")
+//            .setStyle(Notification.BigPictureStyle().bigPicture(bitmap))
+//            .setStyle(Notification.BigTextStyle().bigText(longtext))
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+
+        notificationManager.notify(id, notification.build())
+
+
+        binding.edit.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
