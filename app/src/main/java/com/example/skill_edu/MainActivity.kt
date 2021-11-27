@@ -45,7 +45,6 @@ class MainActivity : AppCompatActivity() {
                 "asdasdasdasdasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdsadsad" +
                 "asdasdasdasdasdasdasdasdasdasdasdasdsadasdasdasdasdasdasdasdsadsad"
         val intent = Intent(this, MainActivity::class.java)
-        intent.action = "open_activ"
         val intent1 = Intent()
         intent1.action = "close_notify"
         val pendingIntent1 = PendingIntent.getActivity(this, 0, intent, 0)
@@ -53,7 +52,6 @@ class MainActivity : AppCompatActivity() {
         val receiver = Reseiver()
         val filter = IntentFilter().also {
             it.addAction("close_notify")
-            it.addAction("open_act")
         }
         registerReceiver(receiver, filter)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -62,12 +60,12 @@ class MainActivity : AppCompatActivity() {
             val importance = NotificationManager.IMPORTANCE_DEFAULT
             val mChannel = NotificationChannel(CHANNEL_ID, name, importance)
             val action = Notification.Action.Builder(
-                R.drawable.ic_launcher_foreground,
+                null,
                 "Open activity",
                 pendingIntent1
             ).build()
             val action1 = Notification.Action.Builder(
-                R.drawable.ic_launcher_foreground,
+                null,
                 "Close notifycation",
                 pendingIntent2
             ).build()
@@ -75,11 +73,12 @@ class MainActivity : AppCompatActivity() {
             notificationManager.createNotificationChannel(mChannel)
             notification = Notification.Builder(this, CHANNEL_ID)
 //                .setTimeoutAfter(5000)
+                .setContentIntent(pendingIntent2)
                 .setColor(getColor(R.color.teal_200))
                 .setAutoCancel(true)
                 .addAction(action)
-                .addAction(action1)
-                .setLargeIcon(Icon.createWithResource(this, R.drawable.ic_launcher_foreground))
+//                .addAction(action1)
+//                .setLargeIcon(Icon.createWithResource(this, R.drawable.ic_launcher_foreground))
         } else {
             notification = Notification.Builder(this)
         }
@@ -92,8 +91,10 @@ class MainActivity : AppCompatActivity() {
             .setAutoCancel(true)
             .setContentText("text")
             .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setLargeIcon(bitmap)
 //            .setProgress(100, 0, true)
-//            .setStyle(Notification.BigPictureStyle().bigPicture(bitmap))
+//            .setStyle(Notification.BigPictureStyle().bigPicture(bitmap).bigLargeIcon(null))
+
 //            .setStyle(Notification.BigTextStyle().bigText(longtext))
 
         binding.notifycation.setOnClickListener {
@@ -123,11 +124,11 @@ class MainActivity : AppCompatActivity() {
 
     inner class Reseiver : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            if (intent?.action != null || intent?.action.equals("close_notify")) {
-                notificationManager.cancel(id)
-            } else if (intent?.action != null || intent?.action.equals("open_activ")) {
-                context?.startActivity(Intent(context, MainActivity::class.java))
-            }
+//            if (intent?.action != null || intent?.action.equals("close_notify")) {
+//                notificationManager.cancel(id)
+//            } else if (intent?.action != null || intent?.action.equals("open_activ")) {
+//                context?.startActivity(Intent(context, MainActivity::class.java))
+//            }
             println(intent?.action)
         }
 
