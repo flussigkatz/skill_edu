@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.work.*
+import com.example.skill_edu.databinding.ActivityMainBinding
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
 import kotlinx.coroutines.*
@@ -29,12 +30,27 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val binding = layoutInflater.inflate(ActivityMainBinding)
         setContentView(R.layout.activity_main)
 
         imageView = findViewById(R.id.image)
 
-        Picasso.get().load("https://images.pexels.com/photos/3943198/pexels-photo-3943198.jpeg").into(
-            imageView)
+        val uri = "https://images.pexels.com/photos/3943198/pexels-photo-3943198.jpeg"
+
+        val target = object : Target {
+            override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
+                mBitmap = bitmap
+                println("load")
+            }
+
+            override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
+                println("fail")
+            }
+
+            override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
+            }
+        }
+            Picasso.get().load(uri).into(target)
 
 //        val component = ComponentName(this, MyJobService::class.java)
 //        val jobInfo = JobInfo.Builder(1, component)
@@ -95,26 +111,26 @@ class SomeWork(appcontext: Context, private val workerParameters: WorkerParamete
 ) {
     override fun doWork(): Result {
 //        println("doWork ${(0 .. 100).random()}")
-        val uri = workerParameters.inputData.getString("key1")
-
-        println("doWork ${uri}")
-        val target = object : Target {
-            override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
-                mBitmap = bitmap
-                println("load")
-            }
-
-            override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
-                println("fail")
-            }
-
-            override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
-            }
-        }
-            CoroutineScope(Dispatchers.Main).launch {
-                println("Picasso")
-                Picasso.get().load(uri).into(target)
-            }
+//        val uri = workerParameters.inputData.getString("key1")
+//
+//        println("doWork ${uri}")
+//        val target = object : Target {
+//            override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
+//                mBitmap = bitmap
+//                println("load")
+//            }
+//
+//            override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
+//                println("fail")
+//            }
+//
+//            override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
+//            }
+//        }
+//            CoroutineScope(Dispatchers.Main).launch {
+//                println("Picasso")
+//                Picasso.get().load(uri).into(target)
+//            }
         return Result.success()
     }
 }
