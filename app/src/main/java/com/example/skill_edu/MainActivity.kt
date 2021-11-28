@@ -22,24 +22,25 @@ import java.util.concurrent.TimeUnit
 import kotlin.coroutines.EmptyCoroutineContext
 
 var mBitmap: Bitmap? = null
-var imageView: ImageView? = null
 
 
 class MainActivity : AppCompatActivity() {
 
 
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = layoutInflater.inflate(ActivityMainBinding)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        imageView = findViewById(R.id.image)
+        var cBitmap: Bitmap? = null
 
         val uri = "https://images.pexels.com/photos/3943198/pexels-photo-3943198.jpeg"
 
         val target = object : Target {
             override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
-                mBitmap = bitmap
+                cBitmap = bitmap
+                binding.image.setImageBitmap(bitmap)
                 println("load")
             }
 
@@ -89,11 +90,12 @@ class MainActivity : AppCompatActivity() {
         CoroutineScope(Dispatchers.IO).launch {
             while (true) {
                 println(mBitmap)
-                delay(3000)
-                if (mBitmap != null && imageView != null) {
+                println(cBitmap)
+                delay(5000)
+                if (mBitmap != null) {
                     println("Set")
                     withContext(Dispatchers.Main) {
-                            imageView!!.setImageBitmap(mBitmap)
+                            binding.image.setImageBitmap(mBitmap)
                     }
                 }
             }
