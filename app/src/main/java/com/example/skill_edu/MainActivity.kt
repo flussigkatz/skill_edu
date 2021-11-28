@@ -5,6 +5,7 @@ import android.app.job.JobScheduler
 import android.content.ComponentName
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -33,25 +34,28 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var cBitmap: Bitmap? = null
-
         val uri = "https://images.pexels.com/photos/3943198/pexels-photo-3943198.jpeg"
 
         val target = object : Target {
             override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
-                cBitmap = bitmap
-                binding.image.setImageBitmap(bitmap)
                 println("load")
+                binding.image.setImageBitmap(bitmap)
             }
 
             override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
                 println("fail")
+                binding.image.setImageDrawable(errorDrawable)
             }
 
             override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
+                binding.image.setImageDrawable(placeHolderDrawable)
             }
         }
-            Picasso.get().load(uri).into(target)
+            Picasso.get()
+                .load(uri)
+                .placeholder(R.drawable.android_logo)
+                .error(R.drawable.ic_launcher_foreground)
+                .into(target)
 
 //        val component = ComponentName(this, MyJobService::class.java)
 //        val jobInfo = JobInfo.Builder(1, component)
@@ -87,20 +91,6 @@ class MainActivity : AppCompatActivity() {
 
         WorkManager.getInstance(applicationContext).enqueue(workRequest)
 
-        CoroutineScope(Dispatchers.IO).launch {
-            while (true) {
-                println(mBitmap)
-                println(cBitmap)
-                delay(5000)
-                if (mBitmap != null) {
-                    println("Set")
-                    withContext(Dispatchers.Main) {
-                            binding.image.setImageBitmap(mBitmap)
-                    }
-                }
-            }
-        }
-
 
     }
 
@@ -112,27 +102,27 @@ class SomeWork(appcontext: Context, private val workerParameters: WorkerParamete
     appcontext, workerParameters
 ) {
     override fun doWork(): Result {
-//        println("doWork ${(0 .. 100).random()}")
-//        val uri = workerParameters.inputData.getString("key1")
-//
-//        println("doWork ${uri}")
-//        val target = object : Target {
-//            override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
-//                mBitmap = bitmap
-//                println("load")
-//            }
-//
-//            override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
-//                println("fail")
-//            }
-//
-//            override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
-//            }
-//        }
-//            CoroutineScope(Dispatchers.Main).launch {
-//                println("Picasso")
-//                Picasso.get().load(uri).into(target)
-//            }
+        println("doWork ${(0 .. 100).random()}")
+        val uri = workerParameters.inputData.getString("key1")
+
+        println("doWork ${uri}")
+        val target = object : Target {
+            override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
+                mBitmap = bitmap
+                println("load")
+            }
+
+            override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
+                println("fail")
+            }
+
+            override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
+            }
+        }
+            CoroutineScope(Dispatchers.Main).launch {
+                println("Picasso")
+                Picasso.get().load(uri).into(target)
+            }
         return Result.success()
     }
 }
