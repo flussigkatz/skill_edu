@@ -33,6 +33,9 @@ class MainActivity : AppCompatActivity() {
 
         imageView = findViewById(R.id.image)
 
+        Picasso.get().load("https://images.pexels.com/photos/3943198/pexels-photo-3943198.jpeg").into(
+            imageView)
+
 //        val component = ComponentName(this, MyJobService::class.java)
 //        val jobInfo = JobInfo.Builder(1, component)
 //                .setMinimumLatency(1000)
@@ -69,15 +72,11 @@ class MainActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.IO).launch {
             while (true) {
-                println("Try")
                 println(mBitmap)
-
-                delay(1000)
+                delay(3000)
                 if (mBitmap != null && imageView != null) {
                     println("Set")
                     withContext(Dispatchers.Main) {
-                        Picasso.get().load("https://images.pexels.com/photos/3943198/pexels-photo-3943198.jpeg").into(
-                            imageView)
                             imageView!!.setImageBitmap(mBitmap)
                     }
                 }
@@ -113,6 +112,7 @@ class SomeWork(appcontext: Context, private val workerParameters: WorkerParamete
             }
         }
             CoroutineScope(Dispatchers.Main).launch {
+                println("Picasso")
                 Picasso.get().load(uri).into(target)
             }
         return Result.success()
