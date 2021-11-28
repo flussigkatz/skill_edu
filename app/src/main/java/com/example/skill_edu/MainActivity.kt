@@ -1,18 +1,10 @@
 package com.example.skill_edu
 
-import android.app.job.JobInfo
-import android.app.job.JobScheduler
-import android.content.ComponentName
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.work.*
 import com.example.skill_edu.databinding.ActivityMainBinding
 import com.squareup.picasso.Picasso
@@ -20,7 +12,6 @@ import com.squareup.picasso.Target
 import kotlinx.coroutines.*
 import java.lang.Exception
 import java.util.concurrent.TimeUnit
-import kotlin.coroutines.EmptyCoroutineContext
 
 var mBitmap: Bitmap? = null
 
@@ -37,27 +28,6 @@ class MainActivity : AppCompatActivity() {
         val uri = "https://images.pexels.com/photos/3943198/pexels-photo-3943198.jpeg"
         val uri2 = "https://lms.skillfactory.ru/assets/courseware/v1/3d4135e2ab1e11084eb82d7201bb9c8b/asset-v1:SkillFactory+ANDROID-NEW+2020+type@asset+block/andr_52.5_1.png"
 
-        val target = object : Target {
-            override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
-                println("onBitmapLoaded")
-                binding.image.setImageBitmap(bitmap)
-            }
-
-            override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
-                println("onBitmapFailed")
-                binding.image.setImageDrawable(errorDrawable)
-            }
-
-            override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
-                println("onPrepareLoad")
-                binding.image.setImageDrawable(placeHolderDrawable)
-            }
-        }
-            Picasso.get()
-                .load(uri2)
-                .placeholder(R.drawable.android_logo)
-                .error(R.drawable.ic_launcher_foreground)
-                .into(target)
 
 //        val component = ComponentName(this, MyJobService::class.java)
 //        val jobInfo = JobInfo.Builder(1, component)
@@ -77,13 +47,13 @@ class MainActivity : AppCompatActivity() {
 //        val workRequest = OneTimeWorkRequestBuilder<SomeWork>().build()
 //        val workRequest = OneTimeWorkRequest.from(SomeWork::class.java)
         val constraints = Constraints.Builder()
-            .setRequiredNetworkType(NetworkType.UNMETERED)
+            .setRequiredNetworkType(NetworkType.METERED)
             .setRequiresBatteryNotLow(true)
             .build()
         val data = workDataOf(
-            "key1" to "https://images.pexels.com/photos/3943198/pexels-photo-3943198.jpeg"
+            "key1" to uri2
         )
-        val workRequest = PeriodicWorkRequestBuilder<SomeWork>(1, TimeUnit.HOURS)
+        val workRequest = PeriodicWorkRequestBuilder<SomeWork2>(1, TimeUnit.HOURS)
             .setConstraints(constraints)
             .setInputData(data)
             .setBackoffCriteria(
@@ -93,6 +63,18 @@ class MainActivity : AppCompatActivity() {
 
         WorkManager.getInstance(applicationContext).enqueue(workRequest)
 
+        CoroutineScope(Dispatchers.IO).launch {
+            do {
+                println("!!!" + mBitmap)
+                delay(5000)
+                if (mBitmap != null) {
+                    withContext(Dispatchers.Main){
+                        binding.image.setImageBitmap(mBitmap)
+                    }
+                }
+            } while (mBitmap != null)
+        }
+
 
     }
 
@@ -100,8 +82,8 @@ class MainActivity : AppCompatActivity() {
 
 }
 
-class SomeWork(appcontext: Context, private val workerParameters: WorkerParameters) : Worker(
-    appcontext, workerParameters
+class SomeWork2(appContext: Context, private val workerParameters: WorkerParameters) : Worker(
+    appContext, workerParameters
 ) {
     override fun doWork(): Result {
         println("doWork ${(0 .. 100).random()}")
