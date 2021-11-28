@@ -35,24 +35,26 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val uri = "https://images.pexels.com/photos/3943198/pexels-photo-3943198.jpeg"
+        val uri2 = "https://lms.skillfactory.ru/assets/courseware/v1/3d4135e2ab1e11084eb82d7201bb9c8b/asset-v1:SkillFactory+ANDROID-NEW+2020+type@asset+block/andr_52.5_1.png"
 
         val target = object : Target {
             override fun onBitmapLoaded(bitmap: Bitmap?, from: Picasso.LoadedFrom?) {
-                println("load")
+                println("onBitmapLoaded")
                 binding.image.setImageBitmap(bitmap)
             }
 
             override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
-                println("fail")
+                println("onBitmapFailed")
                 binding.image.setImageDrawable(errorDrawable)
             }
 
             override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
+                println("onPrepareLoad")
                 binding.image.setImageDrawable(placeHolderDrawable)
             }
         }
             Picasso.get()
-                .load(uri)
+                .load(uri2)
                 .placeholder(R.drawable.android_logo)
                 .error(R.drawable.ic_launcher_foreground)
                 .into(target)
